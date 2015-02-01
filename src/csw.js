@@ -1,62 +1,62 @@
 var Ows = {};
 
-Ows.version = '0.0.1';
+Ows4js.version = '0.0.1';
 
-Ows.Ows = {};
-Ows.Fes = {};
+Ows4js.Ows = {};
+Ows4js.Fes = {};
 
-Ows.NOTIE = true; // here's hoping
+Ows4js.NOTIE = true; // here's hoping
 
-Ows.Proxy = '/cgi-bin/proxy.cgi?url=';
-Ows.Util = {};
+Ows4js.Proxy = '/cgi-bin/proxy.cgi?url=';
+Ows4js.Util = {};
 
 if (window.ActiveXObject) {
-    Ows.NOTIE = false;
+    Ows4js.NOTIE = false;
 }
 
-Ows.Namespaces = {
+Ows4js.Namespaces = {
     'csw': 'http://www.opengis.net/cat/csw/2.0.2',
     'ogc': 'http://www.opengis.net/ogc',
     'ows': 'http://www.opengis.net/ows',
     'xlink': 'http://www.w3.org/1999/xlink'
 };
 
-Ows.IESelectionNamespaces = function() {
+Ows4js.IESelectionNamespaces = function() {
     var namespaces = [];
-    for(var key in Ows.Namespaces) {
-        namespaces.push(key + ':\'' + Ows.Namespaces[key] + '\'');
+    for(var key in Ows4js.Namespaces) {
+        namespaces.push(key + ':\'' + Ows4js.Namespaces[key] + '\'');
     }
     return namespaces.join(' ');
 };
 
-Ows.nsResolver = function(prefix) {
-    return Ows.Namespaces[prefix] || null;
+Ows4js.nsResolver = function(prefix) {
+    return Ows4js.Namespaces[prefix] || null;
 };
 
-Ows.getXPathNode = function(doc, xpath) {
+Ows4js.getXPathNode = function(doc, xpath) {
     var evaluator = new XPathEvaluator();
-    var result = evaluator.evaluate(xpath, doc, Ows.nsResolver,
+    var result = evaluator.evaluate(xpath, doc, Ows4js.nsResolver,
                                     XPathResult.FIRST_ORDERED_NODE_TYPE, null);
     return result.singleNodeValue;
 };
 
-Ows.getXPathNodeList = function(doc, xpath) {
+Ows4js.getXPathNodeList = function(doc, xpath) {
     var evaluator = new XPathEvaluator();
-    var iter = evaluator.evaluate(xpath, doc, Ows.nsResolver,
+    var iter = evaluator.evaluate(xpath, doc, Ows4js.nsResolver,
                                   XPathResult.ORDERED_NODE_ITERATOR_TYPE, null);
     return iter;
 };
-Ows.getXPathValue = function(doc, xpath) {
+Ows4js.getXPathValue = function(doc, xpath) {
     var evaluator = new XPathEvaluator();
-    var result = evaluator.evaluate(xpath, doc, Ows.nsResolver,
+    var result = evaluator.evaluate(xpath, doc, Ows4js.nsResolver,
                                     XPathResult.STRING_TYPE, null);
     return result.stringValue;
 };
 
-Ows.getXPathValueList = function(doc, xpath) {
+Ows4js.getXPathValueList = function(doc, xpath) {
     var list = [];
     var evaluator = new XPathEvaluator();
-    var iter = evaluator.evaluate(xpath, doc, Ows.nsResolver,
+    var iter = evaluator.evaluate(xpath, doc, Ows4js.nsResolver,
                                   XPathResult.ORDERED_NODE_ITERATOR_TYPE, null);
     var node = iter.iterateNext();
     while (node) {
@@ -66,57 +66,57 @@ Ows.getXPathValueList = function(doc, xpath) {
     return list;
 };
 
-Ows.Ows.ServiceIdentification = function(node) {
-    this.title = Ows.getXPathValue(node, 'ows:Title');
-    this.abstract = Ows.getXPathValue(node, 'ows:Abstract');
-    this.keywords = Ows.getXPathValueList(node, 'ows:Keywords/ows:Keyword');
-    this.type = Ows.getXPathValue(node, 'ows:ServiceType');
-    this.version = Ows.getXPathValue(node, 'ows:ServiceTypeVersion');
-    this.fees = Ows.getXPathValue(node, 'ows:Fees');
-    this.accessconstraints = Ows.getXPathValue(node,
+Ows4js.Ows.ServiceIdentification = function(node) {
+    this.title = Ows4js.getXPathValue(node, 'ows:Title');
+    this.abstract = Ows4js.getXPathValue(node, 'ows:Abstract');
+    this.keywords = Ows4js.getXPathValueList(node, 'ows:Keywords/ows:Keyword');
+    this.type = Ows4js.getXPathValue(node, 'ows:ServiceType');
+    this.version = Ows4js.getXPathValue(node, 'ows:ServiceTypeVersion');
+    this.fees = Ows4js.getXPathValue(node, 'ows:Fees');
+    this.accessconstraints = Ows4js.getXPathValue(node,
         'ows:AccessConstraints');
 };
 
-Ows.Ows.ServiceProvider = function(node) {
-    this.name = Ows.getXPathValue(node, 'ows:ProviderName');
-    this.url = Ows.getXPathValue(node, 'ows:ProviderSite/@xlink:href');
+Ows4js.Ows.ServiceProvider = function(node) {
+    this.name = Ows4js.getXPathValue(node, 'ows:ProviderName');
+    this.url = Ows4js.getXPathValue(node, 'ows:ProviderSite/@xlink:href');
 
-    var contact = Ows.getXPathNode(node, 'ows:ServiceContact');
+    var contact = Ows4js.getXPathNode(node, 'ows:ServiceContact');
 
     this.contact = {};
-    this.contact.name = Ows.getXPathValue(contact, 'ows:IndividualName');
-    this.contact.position = Ows.getXPathValue(contact, 'ows:PositionName');
-    this.contact.role = Ows.getXPathValue(contact, '/ows:Role');
+    this.contact.name = Ows4js.getXPathValue(contact, 'ows:IndividualName');
+    this.contact.position = Ows4js.getXPathValue(contact, 'ows:PositionName');
+    this.contact.role = Ows4js.getXPathValue(contact, '/ows:Role');
 
-    var info = Ows.getXPathNode(contact, 'ows:ContactInfo');
+    var info = Ows4js.getXPathNode(contact, 'ows:ContactInfo');
 
-    this.contact.phone = Ows.getXPathValue(info, 'ows:Phone/ows:Voice');
-    this.contact.fax = Ows.getXPathValue(info, 'ows:Phone/ows:Facsimile');
+    this.contact.phone = Ows4js.getXPathValue(info, 'ows:Phone/ows:Voice');
+    this.contact.fax = Ows4js.getXPathValue(info, 'ows:Phone/ows:Facsimile');
 
     this.contact.address = {};
-    var address = Ows.getXPathNode(info, 'ows:Address');
+    var address = Ows4js.getXPathNode(info, 'ows:Address');
 
-    this.contact.address.delivery = Ows.getXPathValue(address,
+    this.contact.address.delivery = Ows4js.getXPathValue(address,
         'ows:DeliveryPoint');
-    this.contact.address.city = Ows.getXPathValue(address,
+    this.contact.address.city = Ows4js.getXPathValue(address,
         'ows:City');
-    this.contact.address.adminarea = Ows.getXPathValue(address,
+    this.contact.address.adminarea = Ows4js.getXPathValue(address,
         'ows:AdministrativeArea');
-    this.contact.address.postalcode = Ows.getXPathValue(address,
+    this.contact.address.postalcode = Ows4js.getXPathValue(address,
         'ows:PostalCode');
-    this.contact.address.country = Ows.getXPathValue(address,
+    this.contact.address.country = Ows4js.getXPathValue(address,
         'ows:Country');
-    this.contact.address.email = Ows.getXPathValue(address,
+    this.contact.address.email = Ows4js.getXPathValue(address,
         'ows:ElectronicMailAddress');
 
-    this.contact.url = Ows.getXPathValue(info,
+    this.contact.url = Ows4js.getXPathValue(info,
         'ows:OnlineResource/@xlink:href');
-    this.contact.hours = Ows.getXPathValue(info, 'ows:HoursOfService');
-    this.contact.instructions = Ows.getXPathValue(info,
+    this.contact.hours = Ows4js.getXPathValue(info, 'ows:HoursOfService');
+    this.contact.instructions = Ows4js.getXPathValue(info,
         'ows:ContactInstructions');
 };
 
-Ows.Ows.OperationsMetadata = function(node) {
+Ows4js.Ows.OperationsMetadata = function(node) {
     var iter = null;
     var iter2 = null;
     var member = null;
@@ -127,37 +127,37 @@ Ows.Ows.OperationsMetadata = function(node) {
     this.parameters = [];
     this.constraints = [];
 
-    iter = Ows.getXPathNodeList(node, 'ows:Operation');
+    iter = Ows4js.getXPathNodeList(node, 'ows:Operation');
     member = iter.iterateNext();
     while (member) {
         operation = {};
-        operation.name = Ows.getXPathValue(member, '@name');
+        operation.name = Ows4js.getXPathValue(member, '@name');
         operation.dcp = {'http': {}};
-        operation.dcp.http.get = Ows.getXPathValue(member,
+        operation.dcp.http.get = Ows4js.getXPathValue(member,
             'ows:DCP/ows:HTTP/ows:Get/@xlink:href');
-        operation.dcp.http.post = Ows.getXPathValue(member,
+        operation.dcp.http.post = Ows4js.getXPathValue(member,
             'ows:DCP/ows:HTTP/ows:Post/@xlink:href');
 
         operation.parameters = [];
 
-        iter2 = Ows.getXPathNodeList(member, 'ows:Parameter');
+        iter2 = Ows4js.getXPathNodeList(member, 'ows:Parameter');
         member2 = iter2.iterateNext();
         while (member2) {
             param = {};
-            param.name = Ows.getXPathValue(member2, '@name');
-            param.values = Ows.getXPathValueList(member2, 'ows:Value');
+            param.name = Ows4js.getXPathValue(member2, '@name');
+            param.values = Ows4js.getXPathValueList(member2, 'ows:Value');
             operation.parameters.push(param);
             member2 = iter2.iterateNext();
         }
 
         operation.constraints = [];
 
-        iter2 = Ows.getXPathNodeList(member, 'ows:Constraint');
+        iter2 = Ows4js.getXPathNodeList(member, 'ows:Constraint');
         member2 = iter2.iterateNext();
         while (member2) {
             param = {};
-            param.name = Ows.getXPathValue(member2, '@name');
-            param.values = Ows.getXPathValueList(member2, 'ows:Value');
+            param.name = Ows4js.getXPathValue(member2, '@name');
+            param.values = Ows4js.getXPathValueList(member2, 'ows:Value');
             operation.parameters.push(param);
             member2 = iter2.iterateNext();
         }
@@ -165,45 +165,45 @@ Ows.Ows.OperationsMetadata = function(node) {
         member = iter.iterateNext();
     }
 
-    iter = Ows.getXPathNodeList(node, 'ows:Parameter');
+    iter = Ows4js.getXPathNodeList(node, 'ows:Parameter');
     member = iter.iterateNext();
     while (member) {
         param = {};
-        param.name = Ows.getXPathValue(member, '@name');
-        param.values = Ows.getXPathValueList(member, 'ows:Value');
+        param.name = Ows4js.getXPathValue(member, '@name');
+        param.values = Ows4js.getXPathValueList(member, 'ows:Value');
         this.parameters.push(param);
         member = iter.iterateNext();
     }
-    iter = Ows.getXPathNodeList(node, 'ows:Constraint');
+    iter = Ows4js.getXPathNodeList(node, 'ows:Constraint');
     member = iter.iterateNext();
     while (member) {
         param = {};
-        param.name = Ows.getXPathValue(member, '@name');
-        param.values = Ows.getXPathValueList(member, 'ows:Value');
+        param.name = Ows4js.getXPathValue(member, '@name');
+        param.values = Ows4js.getXPathValueList(member, 'ows:Value');
         this.constraints.push(param);
         member = iter.iterateNext();
     }
 
 };
 
-Ows.Fes.FilterCapabilities = function(node) {
+Ows4js.Fes.FilterCapabilities = function(node) {
     this.spatials = {};
     this.scalars = {};
     this.ids = {};
 
-    this.spatials.geometries = Ows.getXPathValueList(node,
+    this.spatials.geometries = Ows4js.getXPathValueList(node,
         'ogc:Spatial_Capabilities/ogc:GeometryOperands/ogc:GeometryOperand');
-    this.spatials.operators = Ows.getXPathValueList(node,
+    this.spatials.operators = Ows4js.getXPathValueList(node,
         '//ogc:SpatialOperators/ogc:SpatialOperator/@name');
 
-    this.scalars.comparisons = Ows.getXPathValueList(node,
+    this.scalars.comparisons = Ows4js.getXPathValueList(node,
         '//ogc:ComparisonOperators/ogc:ComparisonOperator');
 
-    this.scalars.functions = Ows.getXPathValueList(node,
+    this.scalars.functions = Ows4js.getXPathValueList(node,
         '//ogc:FunctionNames/ogc:FunctionName');
 };
 
-Ows.Csw = function(url) {
+Ows4js.Csw = function(url) {
     // init by doing a GetCapabilities and parsing metadata
     var node = null;
     this.url = url;
@@ -219,41 +219,41 @@ Ows.Csw = function(url) {
     try {
         try {
             console.debug('Fetching url with params');
-            this.xml = Ows.loadXMLDoc(
-                Ows.Util.buildUrl(this.url, params));
+            this.xml = Ows4js.loadXMLDoc(
+                Ows4js.Util.buildUrl(this.url, params));
         } catch (err2) {
             console.debug('Fetching url with no params (static doc)');
-            this.xml = Ows.loadXMLDoc(this.url, params);
+            this.xml = Ows4js.loadXMLDoc(this.url, params);
         }
     } catch(err) {  // string
         console.error(err);
-        this.xml = Ows.loadXMLString(this.url, params);
+        this.xml = Ows4js.loadXMLString(this.url, params);
     }
     // TODO: error checking, etc.
 
     // get main sections and parse them (TODO)
     console.debug('Procesing ows:ServiceIdentificaiton');
-    node = Ows.getXPathNode(this.xml, '//ows:ServiceIdentification');
-    this.identification = new Ows.Ows.ServiceIdentification(node);
+    node = Ows4js.getXPathNode(this.xml, '//ows:ServiceIdentification');
+    this.identification = new Ows4js.Ows.ServiceIdentification(node);
 
     console.debug('Procesing ows:ServiceProvider');
-    node = Ows.getXPathNode(this.xml, '//ows:ServiceProvider');
-    this.provider = new Ows.Ows.ServiceProvider(node);
+    node = Ows4js.getXPathNode(this.xml, '//ows:ServiceProvider');
+    this.provider = new Ows4js.Ows.ServiceProvider(node);
 
     console.debug('Procesing ows:OpeartionsMetadata');
-    node = Ows.getXPathNode(this.xml, '//ows:OperationsMetadata');
-    this.operationsmetadata = new Ows.Ows.OperationsMetadata(node);
+    node = Ows4js.getXPathNode(this.xml, '//ows:OperationsMetadata');
+    this.operationsmetadata = new Ows4js.Ows.OperationsMetadata(node);
 
     console.debug('Procesing ogc:Filter_Capabilities');
-    node = Ows.getXPathNode(this.xml, '//ogc:Filter_Capabilities');
-    this.filtercapabilities = new Ows.Fes.FilterCapabilities(node);
+    node = Ows4js.getXPathNode(this.xml, '//ogc:Filter_Capabilities');
+    this.filtercapabilities = new Ows4js.Fes.FilterCapabilities(node);
 };
 
-Ows.Csw.prototype.GetRecords = function() {
+Ows4js.Csw.prototype.GetRecords = function() {
     return 'GetRecords called';
 };
 
-Ows.Csw.prototype.GetRecordById = function(id_list, esn,
+Ows4js.Csw.prototype.GetRecordById = function(id_list, esn,
     outputformat, outputschema) {
     var params = {
         'service': 'CSW',
@@ -266,10 +266,10 @@ Ows.Csw.prototype.GetRecordById = function(id_list, esn,
     };
 
     var url = this.getOperationByName('GetRecordById').dcp.http.get;
-    this.xml = Ows.loadXMLDoc(Ows.Util.buildUrl(url, params));
+    this.xml = Ows4js.loadXMLDoc(Ows4js.Util.buildUrl(url, params));
 };
 
-Ows.Csw.prototype.getOperationByName = function(name) {
+Ows4js.Csw.prototype.getOperationByName = function(name) {
     for(var i = 0; i < this.operationsmetadata.operations.length; i++) {
         var opname = this.operationsmetadata.operations[i].name.toLowerCase();
         if (name.toLowerCase() === opname) {
@@ -281,7 +281,7 @@ Ows.Csw.prototype.getOperationByName = function(name) {
 
 // util functions
 
-Ows.loadXMLDoc = function(url) {
+Ows4js.loadXMLDoc = function(url) {
     var httpRequest;
     try {  // no proxy
         console.debug('no proxy');
@@ -295,7 +295,7 @@ Ows.loadXMLDoc = function(url) {
         try {
             console.warn(err);
             console.debug('with proxy');
-            httpRequest = this.Util.httpGet(Ows.Proxy + url);
+            httpRequest = this.Util.httpGet(Ows4js.Proxy + url);
             console.debug('found with proxy');
             if (httpRequest.status !== 200) {
                 throw 'HTTP status code ' + httpRequest.status;
@@ -308,11 +308,11 @@ Ows.loadXMLDoc = function(url) {
     }
 };
 
-Ows.loadXMLString = function(txt) {
+Ows4js.loadXMLString = function(txt) {
     var parser = null;
     var xmlDoc = null;
 
-    if (Ows.NOTIE) {
+    if (Ows4js.NOTIE) {
         parser = new DOMParser();
         xmlDoc = parser.parseFromString(txt, 'text/xml');
     }
@@ -324,7 +324,7 @@ Ows.loadXMLString = function(txt) {
     return xmlDoc;
 };
 
-Ows.Util.httpGet = function(url) {
+Ows4js.Util.httpGet = function(url) {
     var httpRequest;
     try {
         try {
@@ -340,7 +340,7 @@ Ows.Util.httpGet = function(url) {
     }
 };
 
-Ows.Util.httpPost = function(url, lang, request) {
+Ows4js.Util.httpPost = function(url, lang, request) {
     var httpRequest;
     try {
         try {
@@ -357,7 +357,7 @@ Ows.Util.httpPost = function(url, lang, request) {
     }
 };
 
-Ows.Util.buildUrl = function(url, params) {
+Ows4js.Util.buildUrl = function(url, params) {
     var kvps = [];
 
     for (var key in params) {
