@@ -1,7 +1,7 @@
 {
     "name": "ows.js",
     "version": "0.0.1",
-    "description": "The missing OWS library for JavaScript",
+    "description": "JavaScript libary for OGC Web Services",
     "homepage": "https://github.com/OSGeo/ows.js",
     "author": "Tom Kralidis",
     "keywords": [
