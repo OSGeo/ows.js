@@ -7,7 +7,7 @@
     "keywords": [
         "ogc",
         "ows",
-        "csw",
+        "csw"
     ],
     "maintainers": [{
         "name": "Tom Kralidis",
