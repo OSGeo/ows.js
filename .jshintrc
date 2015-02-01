@@ -1,0 +1,24 @@
+{
+    "globals": {
+        "ActiveXObject": true,
+        "escape": true,
+        "console": true,
+        "define": true,
+        "DEBUG": true
+    },
+    "asi": false,
+    "browser": true,
+    "curly": true,
+    "eqeqeq": true,
+    "indent": 4,
+    "latedef": true,
+    "maxlen": 80,
+    "maxparams": 4,
+    "newcap": true,
+    "noarg": true,
+    "quotmark": "single",
+    "trailing": true,
+    "sub": true,
+    "undef": true,
+    "unused": true
+}

@@ -1,0 +1,44 @@
+{
+    "name": "ows.js",
+    "version": "0.0.1",
+    "description": "The missing OWS library for JavaScript",
+    "homepage": "https://github.com/OSGeo/ows.js",
+    "author": "Tom Kralidis",
+    "keywords": [
+        "ogc",
+        "ows",
+        "csw",
+    ],
+    "maintainers": [{
+        "name": "Tom Kralidis",
+        "email": "tomkralidis@gmail.com",
+        "url": "https://github.com/tomkralidis"
+    }],   
+    "contributors": [{
+        "name": "Tom Kralidis",
+        "email": "tomkralidis@gmail.com",
+        "url": "https://github.com/tomkralidis"
+    }],
+    "bugs": "https://github.com/OSGeo/ows.js/issues",
+    "licenses": [{
+        "type": "MIT",
+        "url": "http://opensource.org/licenses/MIT"
+    }],
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/OSGeo/ows.js.git"
+    },
+    "directories": {},
+    "scripts": {
+        "test": "grunt test"
+    },
+    "devDependencies": {
+        "jshint": "*",
+        "qunitjs": "*",
+        "grunt": "*",
+        "grunt-cli": "*",
+        "grunt-contrib-qunit": "*",
+        "grunt-contrib-jshint": "*",
+        "grunt-strip": "*"
+    }
+}
