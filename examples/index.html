@@ -1,44 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8"/>
-        <title>csw4js</title>
-        <style type="text/css">
-            body {
-                background-color: #ffffff;
-                font-family: arial, verdana, sans-serif;
-                text-align: left;
-                float: left;
-            }
-            .flat {
-                border: 0px;
-            }
-            header {
-                display: inline-block;
-            }
-            .header-img {
-                float: left;
-                margin: 0px 15px 15px 0px;
-                border: 0;
-            }
-        </style>
-        <script type="text/javascript" src="../src/csw.js"></script>
-    </head>
-    <body>
-        <header>
-            <h1>csw4js</h1>
-        </header>
-        <section>
-            <script type="text/javascript">
-               // by URL via CSW
-               //var csw = new Ows4js.Csw('http://demo.pycsw.org/cite/csw');
-               // by URL via doc
-               var csw = new Ows4js.Csw('./caps.xml');
-            </script>
-        </section>
-        <footer>
-            <a href="http://validator.w3.org/check?verbose=1&amp;uri=referer" title="Valid HTML 5!"><img class="flat" src="http://www.w3.org/html/logo/downloads/HTML5_Badge_32.png" alt="Valid HTML 5!" height="32" width="32"/></a>
-            <a href="http://jigsaw.w3.org/css-validator/check/referer" title="Valid CSS!"><img class="flat" src="http://jigsaw.w3.org/css-validator/images/vcss-blue" alt="Valid CSS!" height="31" width="88"/></a>
-        </footer>
-    </body>
+<head>
+    <meta charset="utf-8"/>
+    <title>csw4js</title>
+    <style type="text/css">
+        body {
+            background-color: #ffffff;
+            font-family: arial, verdana, sans-serif;
+            text-align: left;
+            float: left;
+        }
+        .flat {
+            border: 0;
+        }
+        header {
+            display: inline-block;
+        }
+        .header-img {
+            float: left;
+            margin: 0 15px 15px 0;
+            border: 0;
+        }
+    </style>
+    <script type="text/javascript" src="../node_modules/jsonix/jsonix.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/CSW_2_0_2_Full.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/Filter_1_1_0.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/GML_3_1_1.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/SMIL_2_0_Language.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/SMIL_2_0.js"></script>
+    <script type="text/javascript" src="../src/ows.js"></script>
+    <script type="text/javascript" src="../src/filter.js"></script>
+    <script type="text/javascript" src="../src/csw.js"></script>
+
+</head>
+<body>
+<header>
+    <h1>csw4js</h1>
+</header>
+<section>
+    <script type="text/javascript">
+        // by URL via CSW
+        //var csw = new Ows4js.Csw('http://demo.pycsw.org/cite/csw');
+
+        // Create csw client
+        var csw = new Ows4js.Csw('http://demo.pycsw.org/cite/csw');
+
+        // Create a Filter
+        var filter = new Ows4js.Filter().PropertyName('dc:title').isLike('%water%');
+        filter = filter.and(new Ows4js.Filter().PropertyName('dc:subject').isLike('%polution%'));
+        filter = filter.and(new Ows4js.Filter().BBOX(-80, 150, 80, -150, 'urn:x-ogc:def:crs:EPSG:6.11:4326'));
+
+        // GetRecords
+        var results = csw.GetRecords(1,10,filter);
+
+        console.log(results);
+
+    </script>
+</section>
+<footer>
+    <a href="http://validator.w3.org/check?verbose=1&amp;uri=referer" title="Valid HTML 5!"><img class="flat" src="http://www.w3.org/html/logo/downloads/HTML5_Badge_32.png" alt="Valid HTML 5!" height="32" width="32"/></a>
+    <a href="http://jigsaw.w3.org/css-validator/check/referer" title="Valid CSS!"><img class="flat" src="http://jigsaw.w3.org/css-validator/images/vcss-blue" alt="Valid CSS!" height="31" width="88"/></a>
+</footer>
+</body>
 </html>

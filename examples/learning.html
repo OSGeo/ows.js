@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>csw4js</title>
+    <style type="text/css">
+        body {
+            background-color: #ffffff;
+            font-family: arial, verdana, sans-serif;
+            text-align: left;
+            float: left;
+        }
+        .flat {
+            border: 0;
+        }
+        header {
+            display: inline-block;
+        }
+        .header-img {
+            float: left;
+            margin: 0 15px 15px 0;
+            border: 0;
+        }
+    </style>
+    <script type="text/javascript" src="../node_modules/jsonix/jsonix.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/CSW_2_0_2_Full.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/Filter_1_1_0.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/GML_3_1_1.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/SMIL_2_0_Language.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/SMIL_2_0.js"></script>
+    <script type="text/javascript" src="../src/ows.js"></script>
+    <script type="text/javascript" src="../src/csw.js"></script>
+    <script type="text/javascript" src="../src/filter.js"></script>
+</head>
+<body>
+<header>
+    <h1>csw4js</h1>
+</header>
+<section>
+    <script type="text/javascript">
+        // by URL via CSW
+        var csw = new Ows4js.Csw('http://demo.pycsw.org/cite/csw');
+
+        // Raw XML to Javascript Object
+        // Only BBOX
+        var getRecordDoc0 = csw.unmarshalString('<?xml version="1.0" encoding="UTF-8"?> <csw:GetRecords xmlns:csw="http://www.opengis.net/cat/csw/2.0.2" xmlns="http://www.occamlab.com/ctl" xmlns:ctl="http://www.occamlab.com/ctl" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/" xmlns:gml="http://www.opengis.net/gml" xmlns:ogc="http://www.opengis.net/ogc" xmlns:ows="http://www.opengis.net/ows" xmlns:p="http://teamengine.sourceforge.net/parsers" xmlns:parsers="http://www.occamlab.com/te/parsers" xmlns:saxon="http://saxon.sf.net/" xmlns:te="http://www.occamlab.com/te" xmlns:tec="java:com.occamlab.te.TECore" xmlns:tems="java:com.occamlab.te.web.MonitorServlet" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" maxRecords="10" resultType="results" service="CSW" version="2.0.2"><csw:Query typeNames="csw:Record"><csw:ElementSetName>full</csw:ElementSetName><csw:Constraint version="1.1.0"><ogc:Filter><ogc:BBOX><ogc:PropertyName>ows:BoundingBox</ogc:PropertyName><gml:Envelope srsName="urn:x-ogc:def:crs:EPSG:6.11:4326"><gml:lowerCorner>-80.0 150.0</gml:lowerCorner><gml:upperCorner>80.0 -150.0</gml:upperCorner></gml:Envelope></ogc:BBOX></ogc:Filter></csw:Constraint></csw:Query></csw:GetRecords>');
+
+        // Only Property Name
+        var getRecordDoc1 = csw.unmarshalString('<?xml version="1.0" encoding="UTF-8"?> <csw:GetRecords xmlns:csw="http://www.opengis.net/cat/csw/2.0.2" xmlns="http://www.occamlab.com/ctl" xmlns:ctl="http://www.occamlab.com/ctl" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/" xmlns:gml="http://www.opengis.net/gml" xmlns:ogc="http://www.opengis.net/ogc" xmlns:ows="http://www.opengis.net/ows" xmlns:p="http://teamengine.sourceforge.net/parsers" xmlns:parsers="http://www.occamlab.com/te/parsers" xmlns:saxon="http://saxon.sf.net/" xmlns:te="http://www.occamlab.com/te" xmlns:tec="java:com.occamlab.te.TECore" xmlns:tems="java:com.occamlab.te.web.MonitorServlet" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" maxRecords="10" resultType="results" service="CSW" version="2.0.2"><csw:Query typeNames="csw:Record"><csw:ElementSetName>full</csw:ElementSetName><csw:Constraint version="1.1.0"><ogc:Filter><ogc:PropertyIsLike escapeChar="\" singleChar="_" wildCard="%"><ogc:PropertyName>dc:title</ogc:PropertyName><ogc:Literal>%WATER DEPTH%</ogc:Literal></ogc:PropertyIsLike></ogc:Filter></csw:Constraint></csw:Query></csw:GetRecords>');
+
+        // Property name And BBOX
+        var getRecordDoc2 = csw.unmarshalString('<?xml version="1.0" encoding="UTF-8"?> <csw:GetRecords xmlns:csw="http://www.opengis.net/cat/csw/2.0.2" xmlns="http://www.occamlab.com/ctl" xmlns:ctl="http://www.occamlab.com/ctl" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/" xmlns:gml="http://www.opengis.net/gml" xmlns:ogc="http://www.opengis.net/ogc" xmlns:ows="http://www.opengis.net/ows" xmlns:p="http://teamengine.sourceforge.net/parsers" xmlns:parsers="http://www.occamlab.com/te/parsers" xmlns:saxon="http://saxon.sf.net/" xmlns:te="http://www.occamlab.com/te" xmlns:tec="java:com.occamlab.te.TECore" xmlns:tems="java:com.occamlab.te.web.MonitorServlet" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" maxRecords="10" resultType="results" service="CSW" version="2.0.2"><csw:Query typeNames="csw:Record"><csw:ElementSetName>full</csw:ElementSetName><csw:Constraint version="1.1.0"><ogc:Filter><ogc:And><ogc:PropertyIsLike escapeChar="\" singleChar="_" wildCard="%"><ogc:PropertyName>dc:subject</ogc:PropertyName><ogc:Literal>%WATER DEPTH%</ogc:Literal></ogc:PropertyIsLike> <ogc:PropertyIsLike escapeChar="\" singleChar="_" wildCard="%"><ogc:PropertyName>dc:title</ogc:PropertyName><ogc:Literal>%WATER DEPTH%</ogc:Literal></ogc:PropertyIsLike></ogc:And></ogc:Filter></csw:Constraint></csw:Query></csw:GetRecords>');
+
+        console.log(getRecordDoc0);
+
+        // Javascript Object to
+        var xml = csw.marshalDocument(getRecordDoc0); // <--- Change It
+
+        console.log(xml);
+    </script>
+</section>
+<footer>
+    <a href="http://validator.w3.org/check?verbose=1&amp;uri=referer" title="Valid HTML 5!"><img class="flat" src="http://www.w3.org/html/logo/downloads/HTML5_Badge_32.png" alt="Valid HTML 5!" height="32" width="32"/></a>
+    <a href="http://jigsaw.w3.org/css-validator/check/referer" title="Valid CSS!"><img class="flat" src="http://jigsaw.w3.org/css-validator/images/vcss-blue" alt="Valid CSS!" height="31" width="88"/></a>
+</footer>
+</body>
+</html>

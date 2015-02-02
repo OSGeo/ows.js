@@ -13,7 +13,7 @@
         "name": "Tom Kralidis",
         "email": "tomkralidis@gmail.com",
         "url": "https://github.com/tomkralidis"
-    }],   
+    }],
     "contributors": [{
         "name": "Tom Kralidis",
         "email": "tomkralidis@gmail.com",
@@ -31,6 +31,10 @@
     "directories": {},
     "scripts": {
         "test": "grunt test"
+    },
+    "dependencies": {
+        "jsonix": ">=2",
+        "ogc-schemas": ">=2"
     },
     "devDependencies": {
         "jshint": "*",
