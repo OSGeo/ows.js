@@ -57,6 +57,16 @@
         var xml = csw.marshalDocument(getRecordDoc0); // <--- Change It
 
         console.log(xml);
+
+        var getRecordbyIdDoc0 = csw.unmarshalString('<?xml version="1.0" encoding="UTF-8"?><csw:GetRecordById xmlns:csw="http://www.opengis.net/cat/csw/2.0.2" service="CSW" version="2.0.2"><csw:Id>urn:uuid:2b86beab-0488-4cf2-9e36-422392cf3e0d</csw:Id><csw:Id>urn:uuid:2b86beab-0488-4cf2-9e36-422392cf3e0d-national1m</csw:Id><csw:Id>urn:uuid:2b86beab-0488-4cf2-9e36-422392cf3e0d-cdl</csw:Id><csw:ElementSetName>full</csw:ElementSetName></csw:GetRecordById>');
+
+        var getRecordbyIdDoc1 = csw.unmarshalString('<?xml version="1.0" encoding="UTF-8"?><csw:GetRecordById xmlns:csw="http://www.opengis.net/cat/csw/2.0.2" service="CSW" version="2.0.2"><csw:Id>urn:uuid:2b86beab-0488-4cf2-9e36-422392cf3e0d</csw:Id><csw:ElementSetName>full</csw:ElementSetName></csw:GetRecordById>');
+
+        console.log(getRecordbyIdDoc0);
+
+        var xml2 = csw.marshalDocument(getRecordbyIdDoc0);
+
+        console.log(xml2);
     </script>
 </section>
 <footer>

@@ -49,9 +49,6 @@ Ows4js.Csw = function(url) {
     console.debug('Procesing ogc:Filter_Capabilities');
     node = Ows4js.getXPathNode(this.xml, '//ogc:Filter_Capabilities');
     this.filtercapabilities = new Ows4js.Fes.FilterCapabilities(node);
-
-    this.jsonnixContext = new Jsonix.Context([OWS_1_0_0, DC_1_1, DCT, XLink_1_0,  SMIL_2_0, SMIL_2_0_Language, GML_3_1_1, Filter_1_1_0, CSW_2_0_2]);
-
 };
 
 /**
@@ -88,16 +85,31 @@ Ows4js.Csw.prototype.GetRecords = function(startPosition, maxRecords, filter) {
     return this.unmarshalDocument(httpRequest.responseXML);
 };
 
+// TODO check the dependencies. Maybe the dependencies must passed through the constructor?
+Ows4js.Csw.jsonnixContext = new Jsonix.Context(
+    [
+        OWS_1_0_0,
+        DC_1_1,
+        DCT,
+        XLink_1_0,
+        SMIL_2_0,
+        SMIL_2_0_Language,
+        GML_3_1_1,
+        Filter_1_1_0,
+        CSW_2_0_2
+    ]
+);
+
 Ows4js.Csw.prototype.marshalDocument = function(object){
-    return this.jsonnixContext.createMarshaller().marshalDocument(object);
+    return Ows4js.Csw.jsonnixContext.createMarshaller().marshalDocument(object);
 };
 
 Ows4js.Csw.prototype.unmarshalDocument = function(xml){
-    return this.jsonnixContext.createUnmarshaller().unmarshalDocument(xml);
+    return Ows4js.Csw.jsonnixContext.createUnmarshaller().unmarshalDocument(xml);
 };
 
 Ows4js.Csw.prototype.unmarshalString = function(string){
-    return this.jsonnixContext.createUnmarshaller().unmarshalString(string);
+    return Ows4js.Csw.jsonnixContext.createUnmarshaller().unmarshalString(string);
 };
 
 /**
@@ -106,20 +118,14 @@ Ows4js.Csw.prototype.unmarshalString = function(string){
  * TODO refactor to return Javascript Object.
  **/
 
-Ows4js.Csw.prototype.GetRecordById = function(id_list, esn,
-                                              outputformat, outputschema) {
-    var params = {
-        'service': 'CSW',
-        'version': this.version,
-        'request': 'GetRecordById',
-        'outputformat': outputformat || null,
-        'outputschema': outputschema || null,
-        'elementsetname': esn || null,
-        'id': id_list.join(',')
-    };
-
-    var url = this.getOperationByName('GetRecordById').dcp.http.get;
-    this.xml = Ows4js.loadXMLDoc(Ows4js.Util.buildUrl(url, params));
+Ows4js.Csw.prototype.GetRecordById = function(id_list) {
+    var byIdAction = new Ows4js.Csw.GetRecordById(id_list);
+    console.log(byIdAction);
+    var myXML = this.marshalDocument(byIdAction);
+    console.log(myXML);
+    var httpRequest = Ows4js.Util.httpPost(this.url, "application/xml", myXML);
+    console.log(httpRequest.responseXML);
+    return this.unmarshalDocument(httpRequest.responseXML);
 };
 
 Ows4js.Csw.prototype.getOperationByName = function(name) {
@@ -131,7 +137,6 @@ Ows4js.Csw.prototype.getOperationByName = function(name) {
     }
     return false;
 };
-
 
 /**
 * Constraint Request
@@ -163,6 +168,31 @@ Ows4js.Csw.GetRecords = function(startPosition, maxRecords, query){
         service: "CSW",
         version: "2.0.2",
         abstractQuery: query
+    };
+};
+
+/**
+ * GetRecordById
+ * */
+
+Ows4js.Csw.GetRecordById = function(ids){
+    this.name = {
+        key: "{http://www.opengis.net/cat/csw/2.0.2}GetRecordById",
+        localPart: "GetRecordById",
+        namespaceURI: "http://www.opengis.net/cat/csw/2.0.2",
+        prefix: "csw",
+        string: "{http://www.opengis.net/cat/csw/2.0.2}csw:GetRecordById"
+    };
+
+    this.value = {
+        TYPE_NAME: "CSW_2_0_2.GetRecordByIdType",
+        elementSetName: {
+            ObjectTYPE_NAME: "CSW_2_0_2.ElementSetNameType",
+            value: "full"
+        },
+        id: ids,
+        service :  "CSW",
+        version : "2.0.2"
     };
 };
 
