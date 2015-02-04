@@ -76,13 +76,19 @@ Ows4js.Csw.prototype.GetRecords = function(startPosition, maxRecords, filter) {
     var query = new Ows4js.Csw.Query('full', new Ows4js.Csw.Constraint(filter));
     // Create de GetRecords Action.
     var recordAction = new Ows4js.Csw.GetRecords(startPosition, maxRecords, query);
+
+    console.log(recordAction);
+
+    console.log(JSON.stringify(recordAction));
+
     // XML to Post.
-    var myXML = this.marshalDocument(recordAction);
+    var myXML = Ows4js.Csw.marshalDocument(recordAction);
+    console.log(myXML);
     // Post XML
     // TODO change the httpRequest sync to async.
     // TODO CallBack or a Promise ?
     var httpRequest = Ows4js.Util.httpPost(this.url, "application/xml", myXML);
-    return this.unmarshalDocument(httpRequest.responseXML);
+    return  Ows4js.Csw.unmarshalDocument(httpRequest.responseXML);
 };
 
 // TODO check the dependencies. Maybe the dependencies must passed through the constructor?
@@ -100,15 +106,15 @@ Ows4js.Csw.jsonnixContext = new Jsonix.Context(
     ]
 );
 
-Ows4js.Csw.prototype.marshalDocument = function(object){
+Ows4js.Csw.marshalDocument = function(object){
     return Ows4js.Csw.jsonnixContext.createMarshaller().marshalDocument(object);
 };
 
-Ows4js.Csw.prototype.unmarshalDocument = function(xml){
+Ows4js.Csw.unmarshalDocument = function(xml){
     return Ows4js.Csw.jsonnixContext.createUnmarshaller().unmarshalDocument(xml);
 };
 
-Ows4js.Csw.prototype.unmarshalString = function(string){
+Ows4js.Csw.unmarshalString = function(string){
     return Ows4js.Csw.jsonnixContext.createUnmarshaller().unmarshalString(string);
 };
 
@@ -121,11 +127,11 @@ Ows4js.Csw.prototype.unmarshalString = function(string){
 Ows4js.Csw.prototype.GetRecordById = function(id_list) {
     var byIdAction = new Ows4js.Csw.GetRecordById(id_list);
     console.log(byIdAction);
-    var myXML = this.marshalDocument(byIdAction);
+    var myXML = Ows4js.Csw.marshalDocument(byIdAction);
     console.log(myXML);
     var httpRequest = Ows4js.Util.httpPost(this.url, "application/xml", myXML);
     console.log(httpRequest.responseXML);
-    return this.unmarshalDocument(httpRequest.responseXML);
+    return Ows4js.Csw.unmarshalDocument(httpRequest.responseXML);
 };
 
 Ows4js.Csw.prototype.getOperationByName = function(name) {

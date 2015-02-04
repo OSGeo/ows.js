@@ -43,7 +43,7 @@
         //var csw = new Ows4js.Csw('http://demo.pycsw.org/cite/csw');
 
         // Create csw client
-        var csw = new Ows4js.Csw('http://demo.pycsw.org/cite/csw');
+        var csw = new Ows4js.Csw('/csw');
 
         // Create a Filter
         var filter = new Ows4js.Filter().PropertyName('dc:title').isLike('%water%');
