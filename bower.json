@@ -16,6 +16,10 @@
         "wms",
         "ogc"
     ],
+    "dependencies": {
+        "jsonix": ">=2",
+        "ogc-schemas": ">=2"
+    },
     "license": "MIT",
     "ignore": [
         "**/.*",
