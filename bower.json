@@ -1,0 +1,27 @@
+{
+    "name": "ows.js",
+    "version": "0.0.1",
+    "homepage": "https://github.com/OSGeo/ows.js",
+    "authors": [
+        "Juan Manuel Vicente <juanma.v82@gmail.com>",
+        "Tom Kralidis <tomkralidis@gmail.com>"
+    ],
+    "description": "OGC Web Services Library for JavaScript.",
+    "main": "src/ows.js",
+    "keywords": [
+        "ows",
+        "csw",
+        "wps",
+        "wfs",
+        "wms",
+        "ogc"
+    ],
+    "license": "MIT",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests"
+    ]
+}
