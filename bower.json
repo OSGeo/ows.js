@@ -7,7 +7,7 @@
         "Tom Kralidis <tomkralidis@gmail.com>"
     ],
     "description": "OGC Web Services Library for JavaScript.",
-    "main": "src/ows.js",
+    "main": "dist/ows.min.js",
     "keywords": [
         "ows",
         "csw",

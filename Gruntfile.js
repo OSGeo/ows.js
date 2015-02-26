@@ -7,8 +7,8 @@ module.exports = function(grunt) {
                 banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
             },
             build: {
-                src: 'src/<%= pkg.name %>.js',
-                dest: 'build/<%= pkg.name %>.min.js'
+                src: ['src/ows.js', 'src/filter.js','src/csw.js'],
+                dest: 'dist/ows.min.js'
             }
         },
         jshint: {
@@ -62,11 +62,15 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-connect-proxy');
     grunt.loadNpmTasks('grunt-contrib-connect');
 
+    grunt.loadNpmTasks('grunt-contrib-uglify');
+
     grunt.registerTask('default', 'test task', function() {
         grunt.log.write('hi there');
     });
     grunt.registerTask('test', ['qunit', 'jshint']);
     grunt.registerTask('build', ['strip']);
+
+    grunt.registerTask('dist', ['uglify']);
 
     grunt.registerTask('serve', [
         'configureProxies:server',
