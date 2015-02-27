@@ -77,13 +77,12 @@ Ows4js.Csw.prototype.GetRecords = function(startPosition, maxRecords, filter) {
     // Create de GetRecords Action.
     var recordAction = new Ows4js.Csw.GetRecords(startPosition, maxRecords, query);
 
-    console.log(recordAction);
-
-    console.log(JSON.stringify(recordAction));
+    //console.log(recordAction);
+    //console.log(JSON.stringify(recordAction));
 
     // XML to Post.
     var myXML = Ows4js.Csw.marshalDocument(recordAction);
-    console.log(myXML);
+    //console.log(myXML);
     // Post XML
     // TODO change the httpRequest sync to async.
     // TODO CallBack or a Promise ?
@@ -103,7 +102,15 @@ Ows4js.Csw.jsonnixContext = new Jsonix.Context(
         GML_3_1_1,
         Filter_1_1_0,
         CSW_2_0_2
-    ]
+    ],
+    {
+        namespacePrefixes: {
+            'http://www.opengis.net/cat/csw/2.0.2': 'csw',
+            "http://www.opengis.net/ogc": 'ogc',
+            "http://www.opengis.net/gml": "gml"
+        },
+        mappingStyle : 'simplified'
+    }
 );
 
 Ows4js.Csw.marshalDocument = function(object){
@@ -126,11 +133,11 @@ Ows4js.Csw.unmarshalString = function(string){
 
 Ows4js.Csw.prototype.GetRecordById = function(id_list) {
     var byIdAction = new Ows4js.Csw.GetRecordById(id_list);
-    console.log(byIdAction);
+    //console.log(byIdAction);
     var myXML = Ows4js.Csw.marshalDocument(byIdAction);
-    console.log(myXML);
+    //console.log(myXML);
     var httpRequest = Ows4js.Util.httpPost(this.url, "application/xml", myXML);
-    console.log(httpRequest.responseXML);
+    //console.log(httpRequest.responseXML);
     return Ows4js.Csw.unmarshalDocument(httpRequest.responseXML);
 };
 

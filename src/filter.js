@@ -213,7 +213,26 @@ Ows4js.Filter.prototype.BBOX = function(llat, llon, ulat, ulon, srsName) {
 };
 
 // TODO check the dependencies. Maybe the dependencies must passed through the constructor?
-Ows4js.Filter.JsonixContext = new Jsonix.Context([OWS_1_0_0, DC_1_1, DCT, XLink_1_0,  SMIL_2_0, SMIL_2_0_Language, GML_3_1_1, Filter_1_1_0, CSW_2_0_2]);
+Ows4js.Filter.JsonixContext = new Jsonix.Context(
+    [
+        OWS_1_0_0,
+        DC_1_1,
+        DCT,
+        XLink_1_0,
+        SMIL_2_0,
+        SMIL_2_0_Language,
+        GML_3_1_1,
+        Filter_1_1_0,
+        CSW_2_0_2
+    ],
+    {
+        namespacePrefixes: {
+            'http://www.opengis.net/cat/csw/2.0.2': 'csw',
+            "http://www.opengis.net/ogc": 'ogc',
+            "http://www.opengis.net/gml": "gml"
+        },
+        mappingStyle : 'simplified'
+    });
 
 Ows4js.Filter.prototype.getXML = function(){
     var doc;
