@@ -47,6 +47,7 @@ Ows4js.Filter.prototype.isLike = function(value){
     this.value.comparisonOps.value.escapeChar =  '';
     this.value.comparisonOps.value.singleChar= '_';
     this.value.comparisonOps.value.wildCard = '%';
+    this.value.comparisonOps.value.matchCase='false';
     return this;
 };
 
