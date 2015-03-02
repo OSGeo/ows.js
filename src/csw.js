@@ -1,4 +1,4 @@
-var Ows = {};
+var Ows4js = {};
 
 Ows4js.version = '0.0.1';
 
