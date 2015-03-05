@@ -127,8 +127,6 @@ Ows4js.Csw.unmarshalString = function(string){
 
 /**
  * Operation name: GetRecordById
- *
- * TODO refactor to return Javascript Object.
  **/
 
 Ows4js.Csw.prototype.GetRecordById = function(id_list) {
@@ -152,7 +150,24 @@ Ows4js.Csw.prototype.getOperationByName = function(name) {
 };
 
 /**
-* Constraint Request
+ * Operation name: GetDomain
+ * */
+
+Ows4js.Csw.prototype.GetDomain = function(propertyName){
+    var getdomainAction = new Ows4js.Csw.GetDomain(propertyName);
+    var myXML = Ows4js.Csw.marshalDocument(getdomainAction);
+    //console.log(myXML);
+    var httpRequest = Ows4js.Util.httpPost(this.url, "application/xml", myXML);
+    //console.log(httpRequest.responseXML);
+    return Ows4js.Csw.unmarshalDocument(httpRequest.responseXML);
+};
+
+/**
+ * Templates for Requests
+ * */
+
+/**
+* Constraint Request Template
 * */
 
 Ows4js.Csw.Constraint = function(filter){
@@ -162,7 +177,7 @@ Ows4js.Csw.Constraint = function(filter){
 };
 
 /**
- * GetRecords Request
+ * GetRecords Request Template
  * */
 
 Ows4js.Csw.GetRecords = function(startPosition, maxRecords, query){
@@ -185,7 +200,7 @@ Ows4js.Csw.GetRecords = function(startPosition, maxRecords, query){
 };
 
 /**
- * GetRecordById
+ * GetRecordById Request Template
  * */
 
 Ows4js.Csw.GetRecordById = function(ids){
@@ -210,7 +225,7 @@ Ows4js.Csw.GetRecordById = function(ids){
 };
 
 /**
- * Query Request
+ * Query Request Template
  * */
 
 Ows4js.Csw.Query = function(elementSetName, constraint){
@@ -241,4 +256,24 @@ Ows4js.Csw.Query = function(elementSetName, constraint){
     if (constraint){
         this.value.constraint = constraint;
     }
+};
+
+/**
+ * GetDomain Request Template
+ * */
+
+Ows4js.Csw.GetDomain = function (propertyName){
+    this.name = {
+        key: "{http://www.opengis.net/cat/csw/2.0.2}GetDomain",
+        localPart: "GetDomain",
+        namespaceURI: "http://www.opengis.net/cat/csw/2.0.2",
+        prefix: "csw",
+        string: "{http://www.opengis.net/cat/csw/2.0.2}csw:GetDomain"
+    };
+    this.value = {
+        TYPE_NAME: "CSW_2_0_2.GetDomainType",
+        propertyName: propertyName,
+        service: "CSW",
+        version: "2.0.2"
+    };
 };
