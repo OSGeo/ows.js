@@ -39,11 +39,9 @@
 </header>
 <section>
     <script type="text/javascript">
-        // by URL via CSW
-        //var csw = new Ows4js.Csw('http://demo.pycsw.org/cite/csw');
-
         // Create csw client
-        var csw = new Ows4js.Csw('/csw');
+        // data.noaa.gov
+        var csw = new Ows4js.Csw('../noa/csw');
 
         // Create a Filter
         var filter = new Ows4js.Filter().PropertyName('dc:title').isLike('%water%');

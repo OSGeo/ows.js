@@ -46,11 +46,23 @@ module.exports = function(grunt) {
                         ];
                     }
                 },
-                proxies: [{
-                    context: '/csw',
-                    host: 'demo.pycsw.org/cite',
-                    port: 9000
-                }]
+                proxies: [
+                    {
+                        changeOrigin: true,
+                        context: '/cite',
+                        host: 'demo.pycsw.org'
+                    },
+                    {
+                        changeOrigin: true,
+                        context: '/noa',
+                        https: true,
+                        port: 443,
+                        host: 'data.noaa.gov',
+                        rewrite: {
+                            'noa' : ''
+                        }
+                    }
+                ]
             }
         }
 
