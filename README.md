@@ -45,3 +45,9 @@ grunt serve
 - PropertyIsBetween
 - PropertyIs"*" Operators
 - Improve Unit Test (Help is extremely Welcome here :D)
+
+##### How to build ows.min.js
+
+```bash
+grunt dist
+```
