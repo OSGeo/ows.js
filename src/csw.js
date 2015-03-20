@@ -7,48 +7,20 @@ Ows4js.Csw ={};
 
 Ows4js.Csw = function(url) {
     // init by doing a GetCapabilities and parsing metadata
-    var node = null;
     this.url = url;
-    this.version = '2.0.2';
-
-    var params = {
-        'service': 'CSW',
-        'version': this.version,
-        'request': 'GetCapabilities'
-    };
-
     console.log(this.url);
-    try {
-        try {
-            console.debug('Fetching url with params');
-            this.xml = Ows4js.loadXMLDoc(
-                Ows4js.Util.buildUrl(this.url, params));
-        } catch (err2) {
-            console.debug('Fetching url with no params (static doc)');
-            this.xml = Ows4js.loadXMLDoc(this.url, params);
-        }
-    } catch(err) {  // string
-        console.error(err);
-        this.xml = Ows4js.loadXMLString(this.url, params);
-    }
-    // TODO: error checking, etc.
+    var getCapabilities = new Ows4js.Csw.GetCapabilities();
+    // XML to Post.
+    var myXML = Ows4js.Csw.marshalDocument(getCapabilities);
+    // TODO change the httpRequest sync to async.
+    // TODO CallBack or a Promise ?
+    var httpRequest = Ows4js.Util.httpPost(this.url, "application/xml", myXML);
+    var capabilities = Ows4js.Csw.unmarshalDocument(httpRequest.responseXML);
 
-    // get main sections and parse them (TODO)
-    console.debug('Procesing ows:ServiceIdentificaiton');
-    node = Ows4js.getXPathNode(this.xml, '//ows:ServiceIdentification');
-    this.identification = new Ows4js.Ows.ServiceIdentification(node);
-
-    console.debug('Procesing ows:ServiceProvider');
-    node = Ows4js.getXPathNode(this.xml, '//ows:ServiceProvider');
-    this.provider = new Ows4js.Ows.ServiceProvider(node);
-
-    console.debug('Procesing ows:OpeartionsMetadata');
-    node = Ows4js.getXPathNode(this.xml, '//ows:OperationsMetadata');
-    this.operationsmetadata = new Ows4js.Ows.OperationsMetadata(node);
-
-    console.debug('Procesing ogc:Filter_Capabilities');
-    node = Ows4js.getXPathNode(this.xml, '//ogc:Filter_Capabilities');
-    this.filtercapabilities = new Ows4js.Fes.FilterCapabilities(node);
+    this.serviceIdentification = capabilities['csw:Capabilities'].serviceIdentification;
+    this.serviceProvider = capabilities['csw:Capabilities'].serviceProvider;
+    this.operationsMetadata = capabilities['csw:Capabilities'].operationsMetadata;
+    this.filterCapabilities = capabilities['csw:Capabilities'].filterCapabilities;
 };
 
 /**
@@ -167,8 +139,8 @@ Ows4js.Csw.prototype.GetDomain = function(propertyName){
  * */
 
 /**
-* Constraint Request Template
-* */
+ * Constraint Request Template
+ * */
 
 Ows4js.Csw.Constraint = function(filter){
     this.TYPE_NAME = "CSW_2_0_2.QueryConstraintType";
@@ -276,4 +248,25 @@ Ows4js.Csw.GetDomain = function (propertyName){
         service: "CSW",
         version: "2.0.2"
     };
+};
+
+/**
+ * GetCapabilities Request Template
+ *
+ * This Objects already use the simple mapping style from jsonix
+ * The GetCabilities should be on the Ows.js ?
+ */
+Ows4js.Csw.GetCapabilities = function () {
+    this["csw:GetCapabilities"] = {
+        "TYPE_NAME":"CSW_2_0_2.GetCapabilitiesType",
+        "service":"CSW",
+        "acceptVersions": {
+            "TYPE_NAME":"OWS_1_0_0.AcceptVersionsType",
+            "version":["2.0.2"]
+        },
+        "acceptFormats": {
+            "TYPE_NAME": "OWS_1_0_0.AcceptFormatsType",
+            "outputFormat":["application/xml"]
+        }
+    }
 };

@@ -43,6 +43,11 @@
         // data.noaa.gov
         var csw = new Ows4js.Csw('../noa/csw');
 
+        console.debug(csw);
+
+        // MaxRecords
+        console.debug(csw.operationsMetadata.constraint.filter(function(element){ return element.name == 'MaxRecordDefault' })[0].value);
+
         // Create a Filter
         var filter = new Ows4js.Filter().PropertyName('dc:title').isLike('%water%');
         filter = filter.and(new Ows4js.Filter().PropertyName('dc:subject').isLike('%polution%'));

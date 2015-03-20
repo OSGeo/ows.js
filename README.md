@@ -31,6 +31,7 @@ grunt serve
  - GetRecords
  - GetRecordById
  - GetDomain
+ - GetCapabilities (Refactored)
 - OGC Filters
  - Operators:
   - AND
@@ -39,14 +40,23 @@ grunt serve
 
 ### Next TODOS
 
-- GetCapabilities Refactor
 - OR Operator
 - PropertyIsBetween
 - PropertyIs"*" Operators
 - Improve Unit-Tests (Help is extremely Welcome here :D)
+- DescribeRecord
+
+### How to install ows.js in your project.
+
+```bash
+ bower install ows.js --save
+```
+
+> no tags at the moment.
 
 ### How to build ows.min.js
 
 ```bash
 grunt dist
 ```
+
