@@ -18,7 +18,7 @@
     ],
     "dependencies": {
         "jsonix": "2.1.2",
-        "ogc-schemas": "2.0.1"
+        "ogc-schemas": "2.0.2"
     },
     "license": "MIT",
     "ignore": [
