@@ -40,7 +40,8 @@
   },
   "dependencies": {
     "jsonix": ">=2",
-    "ogc-schemas": ">=2"
+    "ogc-schemas": ">=2",
+    "w3c-schemas" : ">=1"
   },
   "devDependencies": {
     "grunt": "*",
