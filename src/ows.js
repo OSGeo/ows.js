@@ -245,9 +245,8 @@ Ows4js.loadXMLString = function(txt) {
 
     if (Ows4js.NOTIE) {
         parser = new DOMParser();
-        xmlDoc = parser.parseFromString(txt, 'text/xml');
-    }
-    else {
+        xmlDoc = parser.parseFromString(txt, 'application/xml');
+    } else {
         xmlDoc = new ActiveXObject('Microsoft.XMLDOM');
         xmlDoc.async = false;
         xmlDoc.loadXML(txt);

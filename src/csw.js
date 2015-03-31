@@ -14,13 +14,23 @@ Ows4js.Csw = function(url) {
     var myXML = Ows4js.Csw.marshalDocument(getCapabilities);
     // TODO change the httpRequest sync to async.
     // TODO CallBack or a Promise ?
-    var httpRequest = Ows4js.Util.httpPost(this.url, "application/xml", myXML);
-    var capabilities = Ows4js.Csw.unmarshalDocument(httpRequest.responseXML);
+    var capabilities;
+    try{
+        var httpRequest = Ows4js.Util.httpPost(this.url, "application/xml", myXML);
+        capabilities = Ows4js.Csw.unmarshalDocument(httpRequest.responseXML);
+    }catch (e){ // String file
+        var httpRequest = Ows4js.Util.httpGet(this.url,"application/xml");
+        capabilities = Ows4js.Csw.unmarshalDocument(httpRequest.responseXML);
+    }
 
     this.serviceIdentification = capabilities['csw:Capabilities'].serviceIdentification;
     this.serviceProvider = capabilities['csw:Capabilities'].serviceProvider;
     this.operationsMetadata = capabilities['csw:Capabilities'].operationsMetadata;
     this.filterCapabilities = capabilities['csw:Capabilities'].filterCapabilities;
+
+    console.log(this);
+
+    this.version = '2.0.2';
 };
 
 /**
@@ -112,13 +122,9 @@ Ows4js.Csw.prototype.GetRecordById = function(id_list) {
 };
 
 Ows4js.Csw.prototype.getOperationByName = function(name) {
-    for(var i = 0; i < this.operationsmetadata.operations.length; i++) {
-        var opname = this.operationsmetadata.operations[i].name.toLowerCase();
-        if (name.toLowerCase() === opname) {
-            return this.operationsmetadata.operations[i];
-        }
-    }
-    return false;
+    return  this.operationsMetadata.operation.filter(function(element){
+        return element.name === name;
+    })[0];
 };
 
 /**
