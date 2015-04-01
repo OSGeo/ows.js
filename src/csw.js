@@ -58,13 +58,8 @@ Ows4js.Csw.prototype.GetRecords = function(startPosition, maxRecords, filter) {
     var query = new Ows4js.Csw.Query('full', new Ows4js.Csw.Constraint(filter));
     // Create de GetRecords Action.
     var recordAction = new Ows4js.Csw.GetRecords(startPosition, maxRecords, query);
-
-    //console.log(recordAction);
-    //console.log(JSON.stringify(recordAction));
-
     // XML to Post.
     var myXML = Ows4js.Csw.marshalDocument(recordAction);
-    //console.log(myXML);
     // Post XML
     // TODO change the httpRequest sync to async.
     // TODO CallBack or a Promise ?
@@ -156,41 +151,30 @@ Ows4js.Csw.Constraint = function(filter){
 
 /**
  * GetRecords Request Template
+ *
+ * This Objects already use the simple mapping style from jsonix
  * */
 
 Ows4js.Csw.GetRecords = function(startPosition, maxRecords, query){
-    this.name = {
-        key: "{http://www.opengis.net/cat/csw/2.0.2}GetRecords",
-        localPart: "GetRecords",
-        namespaceURI: "http://www.opengis.net/cat/csw/2.0.2",
-        prefix: "csw",
-        string: "{http://www.opengis.net/cat/csw/2.0.2}csw:GetRecords"
-    };
-    this.value = {
+    this['csw:GetRecords'] = {
         TYPE_NAME: "CSW_2_0_2.GetRecordsType",
+        abstractQuery: query,
         startPosition: startPosition,
-        maxRecords: maxRecords,
+        maxRecords: 10,
         resultType: "results",
         service: "CSW",
-        version: "2.0.2",
-        abstractQuery: query
+        version: "2.0.2"
     };
 };
 
 /**
  * GetRecordById Request Template
+ *
+ * This Objects already use the simple mapping style from jsonix
  * */
 
 Ows4js.Csw.GetRecordById = function(ids){
-    this.name = {
-        key: "{http://www.opengis.net/cat/csw/2.0.2}GetRecordById",
-        localPart: "GetRecordById",
-        namespaceURI: "http://www.opengis.net/cat/csw/2.0.2",
-        prefix: "csw",
-        string: "{http://www.opengis.net/cat/csw/2.0.2}csw:GetRecordById"
-    };
-
-    this.value = {
+    this['csw:GetRecordById'] ={
         TYPE_NAME: "CSW_2_0_2.GetRecordByIdType",
         elementSetName: {
             ObjectTYPE_NAME: "CSW_2_0_2.ElementSetNameType",
@@ -204,19 +188,13 @@ Ows4js.Csw.GetRecordById = function(ids){
 
 /**
  * Query Request Template
+ *
+ * This Objects already use the simple mapping style from jsonix
  * */
 
 Ows4js.Csw.Query = function(elementSetName, constraint){
-    this.name = {
-        key: "{http://www.opengis.net/cat/csw/2.0.2}Query",
-        localPart: "Query",
-        namespaceURI: "http://www.opengis.net/cat/csw/2.0.2",
-        prefix: "csw",
-        string: "{http://www.opengis.net/cat/csw/2.0.2}csw:Query"
-    };
-    this.value = {
+    this['csw:Query'] = {
         TYPE_NAME: "CSW_2_0_2.QueryType",
-        //constraint : {},
         elementSetName : {
             TYPE_NAME: "CSW_2_0_2.ElementSetNameType",
             value: elementSetName
@@ -232,23 +210,18 @@ Ows4js.Csw.Query = function(elementSetName, constraint){
         ]
     };
     if (constraint){
-        this.value.constraint = constraint;
+        this['csw:Query'].constraint = constraint;
     }
 };
 
 /**
  * GetDomain Request Template
+ *
+ * This Objects already use the simple mapping style from jsonix
  * */
 
 Ows4js.Csw.GetDomain = function (propertyName){
-    this.name = {
-        key: "{http://www.opengis.net/cat/csw/2.0.2}GetDomain",
-        localPart: "GetDomain",
-        namespaceURI: "http://www.opengis.net/cat/csw/2.0.2",
-        prefix: "csw",
-        string: "{http://www.opengis.net/cat/csw/2.0.2}csw:GetDomain"
-    };
-    this.value = {
+    this['csw:GetDomain'] ={
         TYPE_NAME: "CSW_2_0_2.GetDomainType",
         propertyName: propertyName,
         service: "CSW",
@@ -260,7 +233,7 @@ Ows4js.Csw.GetDomain = function (propertyName){
  * GetCapabilities Request Template
  *
  * This Objects already use the simple mapping style from jsonix
- * The GetCabilities should be on the Ows.js ?
+ * The GetCapabilities should be on the Ows.js ?
  */
 Ows4js.Csw.GetCapabilities = function () {
     this["csw:GetCapabilities"] = {

@@ -50,12 +50,39 @@
         console.debug(csw);
 
         // MaxRecords
+        console.log('Get Constraint MaxRecordDefault property');
         console.debug(csw.operationsMetadata.constraint.filter(function(element){ return element.name == 'MaxRecordDefault' })[0].value[0]);
 
+        console.info('Some OGC Filter Examples!');
         // Create a Filter
         var filter = new Ows4js.Filter().PropertyName('dc:title').isLike('%water%');
-        //filter = filter.and(new Ows4js.Filter().PropertyName('dc:subject').isLike('%polution%'));
-        //filter = filter.and(new Ows4js.Filter().BBOX(-80, 150, 80, -150, 'urn:x-ogc:def:crs:EPSG:6.11:4326'));
+        filter = filter.and(new Ows4js.Filter().PropertyName('dc:subject').isLike('%polution%'));
+        filter = filter.and(new Ows4js.Filter().BBOX(-80, 150, 80, -150, 'urn:x-ogc:def:crs:EPSG:6.11:4326'));
+
+        console.log('AND & AND Filter');
+        console.log(filter);
+        console.log(filter.getXML());
+
+        var filter2 = new Ows4js.Filter().PropertyName('dc:title').isLike('%water%');
+        filter2 = filter2.or(new Ows4js.Filter().PropertyName('dc:subject').isLike('%polution%'));
+
+        console.log('OR Filter');
+        console.log(filter2);
+        console.log(filter2.getXML());
+
+        console.log('AND & OR Filter combined!');
+
+        /*var filter3 = filter.and(filter2);
+        console.log(filter3);
+        console.log(filter3.getXML());*/
+
+        console.log('OR & AND Filter combined!');
+
+        var filter4 = filter2.or(filter);
+        console.log(filter4);
+        console.log(filter4.getXML());
+
+        console.info('Some CSW GetRecord Example!');
 
         // GetRecords
         var results = csw.GetRecords(1,10,filter);
@@ -64,7 +91,7 @@
 
         // GetRecordById
         var byid = csw.GetRecordById([
-            'urn:uuid:2b86beab-0488-4cf2-9e36-422392cf3e0d'
+            'gov.noaa.nodc:8800169'
         ]);
 
         console.log(byid);
@@ -73,6 +100,7 @@
         var domain = csw.GetDomain('dc:type');
 
         console.log(domain);
+
     </script>
 </section>
 <footer>

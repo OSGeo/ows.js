@@ -35,12 +35,12 @@ grunt serve
 - OGC Filters
  - Operators:
   - AND
+  - OR
   - BBOX
   - isLike
 
 ### Next TODOS
 
-- OR Operator
 - PropertyIsBetween
 - PropertyIs"*" Operators
 - Improve Unit-Tests (Help is extremely Welcome here :D)
