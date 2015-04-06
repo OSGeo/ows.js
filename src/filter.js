@@ -35,44 +35,144 @@ Ows4js.Filter.prototype.isLike = function(value){
     return this;
 };
 
-Ows4js.Filter.prototype.isNull = function(filter){
+Ows4js.Filter.prototype.isNull = function(value){
     throw 'Not Implemented yet';
 };
 
-Ows4js.Filter.prototype.isNill = function(filter){
-    throw 'Not Implemented yet';
+Ows4js.Filter.prototype.isBetween = function(lowerValue, upperValue){
+    this['ogc:Filter'].comparisonOps = {
+        'ogc:PropertyIsBetween' : {
+            TYPE_NAME: "Filter_1_1_0.PropertyIsBetweenType",
+            expression :{
+                'ogc:PropertyName': {
+                    TYPE_NAME: "Filter_1_1_0.PropertyNameType",
+                    content: this.tmp.PropertyName
+                }
+            },
+            lowerBoundary:{
+                'ogc:Literal':{
+                    TYPE_NAME: "Filter_1_1_0.LiteralType",
+                    content :[lowerValue]
+                }
+            },
+            upperBoundary:{
+                'ogc:Literal':{
+                    TYPE_NAME: "Filter_1_1_0.LiteralType",
+                    content :[upperValue]
+                }
+            }
+        }
+    };
+    this.tmp.PropertyName = {};
+    return this;
 };
 
-Ows4js.Filter.prototype.isBetween = function(filter){
-    throw 'Not Implemented yet';
+Ows4js.Filter.prototype.isEqualTo = function(value){
+    this['ogc:Filter'].comparisonOps = {
+        'ogc:PropertyIsEqualTo' : {
+            TYPE_NAME: "Filter_1_1_0.PropertyIsEqualTo",
+            literal: {
+                TYPE_NAME: "Filter_1_1_0.LiteralType",
+                content: [value]
+            },
+            propertyName: {
+                TYPE_NAME: "Filter_1_1_0.PropertyNameType",
+                content: this.tmp.PropertyName
+            }
+        }
+    };
+    this.tmp.PropertyName = {};
+    return this;
 };
 
-Ows4js.Filter.prototype.isEqualTo = function(filter){
-    throw 'Not Implemented yet';
+Ows4js.Filter.prototype.isLessThanOrEqualTo = function(value){
+    this['ogc:Filter'].comparisonOps = {
+        'ogc:PropertyIsLessThanOrEqualTo' : {
+            TYPE_NAME: "Filter_1_1_0.PropertyIsLessThanOrEqualTo",
+            literal: {
+                TYPE_NAME: "Filter_1_1_0.LiteralType",
+                content: [value]
+            },
+            propertyName: {
+                TYPE_NAME: "Filter_1_1_0.PropertyNameType",
+                content: this.tmp.PropertyName
+            }
+        }
+    };
+    this.tmp.PropertyName = {};
+    return this;
 };
 
-Ows4js.Filter.prototype.isLessThanEqualTo = function(filter){
-    throw 'Not Implemented yet';
+Ows4js.Filter.prototype.isGreaterThan = function(value){
+    this['ogc:Filter'].comparisonOps = {
+        'ogc:PropertyIsGreaterThan' : {
+            TYPE_NAME: "Filter_1_1_0.PropertyIsGreaterThan",
+            literal: {
+                TYPE_NAME: "Filter_1_1_0.LiteralType",
+                content: [value]
+            },
+            propertyName: {
+                TYPE_NAME: "Filter_1_1_0.PropertyNameType",
+                content: this.tmp.PropertyName
+            }
+        }
+    };
+    this.tmp.PropertyName = {};
+    return this;
 };
 
-Ows4js.Filter.prototype.isGreaterThan = function(filter){
-    throw 'Not Implemented yet';
+Ows4js.Filter.prototype.isLessThan = function(value){
+    this['ogc:Filter'].comparisonOps = {
+        'ogc:PropertyIsLessThan' : {
+            TYPE_NAME: "Filter_1_1_0.PropertyIsLessThan",
+            literal: {
+                TYPE_NAME: "Filter_1_1_0.LiteralType",
+                content: [value]
+            },
+            propertyName: {
+                TYPE_NAME: "Filter_1_1_0.PropertyNameType",
+                content: this.tmp.PropertyName
+            }
+        }
+    };
+    this.tmp.PropertyName = {};
+    return this;
 };
 
-Ows4js.Filter.prototype.isLessThan = function(filter){
-    throw 'Not Implemented yet';
+Ows4js.Filter.prototype.isGreaterThanOrEqualTo = function(value){
+    this['ogc:Filter'].comparisonOps = {
+        'ogc:PropertyIsGreaterThanOrEqualTo' : {
+            TYPE_NAME: "Filter_1_1_0.PropertyIsGreaterThanOrEqualTo",
+            literal: {
+                TYPE_NAME: "Filter_1_1_0.LiteralType",
+                content: [value]
+            },
+            propertyName: {
+                TYPE_NAME: "Filter_1_1_0.PropertyNameType",
+                content: this.tmp.PropertyName
+            }
+        }
+    };
+    this.tmp.PropertyName = {};
+    return this;
 };
 
-Ows4js.Filter.prototype.isGreaterThanEqualTo = function(filter){
-    throw 'Not Implemented yet';
-};
-
-Ows4js.Filter.prototype.isNotEqualTo = function(filter){
-    throw 'Not Implemented yet';
-};
-
-Ows4js.Filter.prototype.isNullCheck = function(filter){
-    throw 'Not Implemented yet';
+Ows4js.Filter.prototype.isNotEqualTo = function(value){
+    this['ogc:Filter'].comparisonOps = {
+        'ogc:PropertyIsNotEqualTo' : {
+            TYPE_NAME: "Filter_1_1_0.PropertyIsNotEqualTo",
+            literal: {
+                TYPE_NAME: "Filter_1_1_0.LiteralType",
+                content: [value]
+            },
+            propertyName: {
+                TYPE_NAME: "Filter_1_1_0.PropertyNameType",
+                content: this.tmp.PropertyName
+            }
+        }
+    };
+    this.tmp.PropertyName = {};
+    return this;
 };
 
 // Logical Operators
@@ -145,6 +245,9 @@ Ows4js.Filter.prototype.or = function(filter){
     return this;
 };
 
+Ows4js.Filter.prototype.not = function(filter){
+    throw 'Not Implemented yet';
+};
 
 Ows4js.Filter.getPreviousOperator = function(filter){
     var operator;
@@ -161,10 +264,6 @@ Ows4js.Filter.getPreviousOperator = function(filter){
         throw 'Not Implemented yet, another operators';
     }
     return operator;
-};
-
-Ows4js.Filter.prototype.not = function(filter){
-    throw 'Not Implemented yet';
 };
 
 // Spatial Operators
@@ -235,7 +334,7 @@ Ows4js.Filter.JsonixContext = new Jsonix.Context(
 Ows4js.Filter.prototype.getXML = function(){
     var doc;
     var marshaller= Ows4js.Filter.JsonixContext.createMarshaller();
-    // It delete de tmp property to prevent jsonix fail.
+    // Delete the tmp property to prevent jsonix fail.
     delete this.tmp;
     doc = marshaller.marshalDocument(this);
     return doc;

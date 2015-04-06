@@ -6,7 +6,7 @@ OGC Web Services Library for JavaScript.
 
 ## Getting started
 
-**clone de repository and install dependecies**
+###Clone de repository and install dependecies
 
 ```bash
 git clone https://github.com/juanmav/ows.js.git
@@ -24,29 +24,8 @@ grunt serve
 - [http://127.0.0.1:9000/examples/](http://127.0.0.1:9000/examples/)
 - Press F12 (Chrome & Firerfox)
 
-### Implemented
 
-- Basic Ows operations (ex: GetCapabilities)
-- CSW
- - GetRecords
- - GetRecordById
- - GetDomain
- - GetCapabilities (Refactored)
-- OGC Filters
- - Operators:
-  - AND
-  - OR
-  - BBOX
-  - isLike
-
-### Next TODOS
-
-- PropertyIsBetween
-- PropertyIs"*" Operators
-- Improve Unit-Tests (Help is extremely Welcome here :D)
-- DescribeRecord
-
-### How to install ows.js in your project.
+### Or how to install ows.js in your project.
 
 ```bash
  bower install ows.js --save
@@ -54,7 +33,7 @@ grunt serve
 
 > no tags at the moment.
 
-you also need to add to your index.html
+**you also need to add to your index.html**
 
 ```html
 <script type="text/javascript" src="../bower_components/ogc-schemas/lib/OWS_1_0_0.js"></script>
@@ -68,9 +47,43 @@ you also need to add to your index.html
 <script type="text/javascript" src="../bower_components/ogc-schemas/lib/SMIL_2_0.js"></script>
 ```
 
+
+### Implemented
+
+- Basic Ows operations (ex: GetCapabilities)
+- CSW
+ - GetRecords
+ - GetRecordById
+ - GetDomain
+ - GetCapabilities (Refactored)
+- OGC Filters
+ - Operators:
+  - Logical Operators:
+    - AND
+    - OR
+  - Spatial Operatos:
+    - BBOX
+  -Comparison
+    - isLike
+    - isBetween
+    - isEqualTo
+    - isLessThanOrEqualTo
+    - isGreaterThan
+    - isLessThan
+    - isGreaterThanOrEqualTo
+    - isNotEqualTo
+
+
+### Next TODOS
+
+- Clean Ows.js deprecated code.
+- Implement NOT operator.
+- PropertyIsNull
+- Improve Unit-Tests (Help is extremely Welcome here :D)
+- DescribeRecord
+
 ### How to build ows.min.js
 
 ```bash
 grunt dist
 ```
-
