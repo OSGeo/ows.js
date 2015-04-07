@@ -39,9 +39,9 @@
     "test": "grunt test"
   },
   "dependencies": {
-    "jsonix": ">=2",
-    "ogc-schemas": ">=2",
-    "w3c-schemas" : ">=1"
+    "jsonix": "2.1.4",
+    "ogc-schemas": "2.0.2",
+    "w3c-schemas" : "1.0.4"
   },
   "devDependencies": {
     "grunt": "*",
