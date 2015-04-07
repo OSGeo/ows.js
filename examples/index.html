@@ -32,9 +32,10 @@
     <script type="text/javascript" src="../node_modules/ogc-schemas/lib/GML_3_1_1.js"></script>
     <script type="text/javascript" src="../node_modules/ogc-schemas/lib/SMIL_2_0_Language.js"></script>
     <script type="text/javascript" src="../node_modules/ogc-schemas/lib/SMIL_2_0.js"></script>
-    <script type="text/javascript" src="../src/ows.js"></script>
+    <script type="text/javascript" src="../dist/ows.min.js"></script>
+    <!--<script type="text/javascript" src="../src/ows.js"></script>
     <script type="text/javascript" src="../src/filter.js"></script>
-    <script type="text/javascript" src="../src/csw.js"></script>
+    <script type="text/javascript" src="../src/csw.js"></script>-->
 
 </head>
 <body>
@@ -56,7 +57,7 @@
         console.info('Some OGC Filter Examples!');
         // Create a Filter
         var filter = new Ows4js.Filter().PropertyName('dc:title').isLike('%water%');
-        filter = filter.and(new Ows4js.Filter().PropertyName('dc:subject').isLike('%polution%'));
+        //filter = filter.and(new Ows4js.Filter().PropertyName('dc:subject').isLike('%polution%'));
         //filter = filter.and(new Ows4js.Filter().BBOX(-80, 150, 80, -150, 'urn:x-ogc:def:crs:EPSG:6.11:4326'));
 
         console.log('AND & AND Filter');
@@ -82,6 +83,12 @@
         console.log(filter4);
         console.log(filter4.getXML());
 
+        console.info('GetDomain Example!');
+        // GetDomain
+        var domain = csw.GetDomain('dc:type');
+
+        console.log(domain);
+
         console.info('Some CSW GetRecord Example!');
 
         // GetRecords
@@ -101,11 +108,6 @@
         ]);
 
         console.log(byid);
-
-        // GetDomain
-        var domain = csw.GetDomain('dc:type');
-
-        console.log(domain);
 
     </script>
 </section>

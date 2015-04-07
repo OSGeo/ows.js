@@ -15,11 +15,12 @@ Ows4js.Csw = function(url) {
     // TODO change the httpRequest sync to async.
     // TODO CallBack or a Promise ?
     var capabilities;
+    var httpRequest;
     try{
-        var httpRequest = Ows4js.Util.httpPost(this.url, "application/xml", myXML);
+        httpRequest = Ows4js.Util.httpPost(this.url, "application/xml", myXML);
         capabilities = Ows4js.Csw.unmarshalDocument(httpRequest.responseXML);
     }catch (e){ // String file
-        var httpRequest = Ows4js.Util.httpGet(this.url,"application/xml");
+        httpRequest = Ows4js.Util.httpGet(this.url,"application/xml");
         capabilities = Ows4js.Csw.unmarshalDocument(httpRequest.responseXML);
     }
 
@@ -57,7 +58,7 @@ Ows4js.Csw.prototype.GetRecords = function(startPosition, maxRecords, filter) {
 
     var query;
     if (filter === undefined || filter === null) {
-        query =query = new Ows4js.Csw.Query('full');
+        query = new Ows4js.Csw.Query('full');
     } else {
         // Create Query
          query = new Ows4js.Csw.Query('full', new Ows4js.Csw.Constraint(filter));
