@@ -57,7 +57,7 @@
         // Create a Filter
         var filter = new Ows4js.Filter().PropertyName('dc:title').isLike('%water%');
         filter = filter.and(new Ows4js.Filter().PropertyName('dc:subject').isLike('%polution%'));
-        filter = filter.and(new Ows4js.Filter().BBOX(-80, 150, 80, -150, 'urn:x-ogc:def:crs:EPSG:6.11:4326'));
+        //filter = filter.and(new Ows4js.Filter().BBOX(-80, 150, 80, -150, 'urn:x-ogc:def:crs:EPSG:6.11:4326'));
 
         console.log('AND & AND Filter');
         console.log(filter);
@@ -88,6 +88,12 @@
         var results = csw.GetRecords(1,10,filter);
 
         console.log(results);
+
+        // GetRecords Without Filter;
+
+        var results2 = csw.GetRecords(1,10);
+
+        console.log(results2);
 
         // GetRecordById
         var byid = csw.GetRecordById([

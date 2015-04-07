@@ -54,8 +54,14 @@ Ows4js.Csw = function(url) {
  * */
 
 Ows4js.Csw.prototype.GetRecords = function(startPosition, maxRecords, filter) {
-    // Create Query
-    var query = new Ows4js.Csw.Query('full', new Ows4js.Csw.Constraint(filter));
+
+    var query;
+    if (filter === undefined || filter === null) {
+        query =query = new Ows4js.Csw.Query('full');
+    } else {
+        // Create Query
+         query = new Ows4js.Csw.Query('full', new Ows4js.Csw.Constraint(filter));
+    }
     // Create de GetRecords Action.
     var recordAction = new Ows4js.Csw.GetRecords(startPosition, maxRecords, query);
     // XML to Post.
