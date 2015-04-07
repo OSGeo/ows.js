@@ -4,11 +4,13 @@ Ows4js.Filter = function(){
     this['ogc:Filter'] = {
         TYPE_NAME : "Filter_1_1_0.FilterType"
     };
-    // Temporary values
-    this.tmp ={};
+
 };
 
 Ows4js.Filter.prototype.PropertyName = function (propertyName){
+    // Temporary values
+    this.tmp ={};
+    // Temporary PropertyName
     this.tmp.PropertyName = propertyName;
     return this;
 };
@@ -31,7 +33,8 @@ Ows4js.Filter.prototype.isLike = function(value){
             }
         }
     };
-    this.tmp.PropertyName = {};
+    // Delete the tmp property to prevent jsonix fail.
+    delete this.tmp;
     return this;
 };
 
@@ -63,7 +66,8 @@ Ows4js.Filter.prototype.isBetween = function(lowerValue, upperValue){
             }
         }
     };
-    this.tmp.PropertyName = {};
+    // Delete the tmp property to prevent jsonix fail.
+    delete this.tmp;
     return this;
 };
 
@@ -81,7 +85,8 @@ Ows4js.Filter.prototype.isEqualTo = function(value){
             }
         }
     };
-    this.tmp.PropertyName = {};
+    // Delete the tmp property to prevent jsonix fail.
+    delete this.tmp;
     return this;
 };
 
@@ -99,7 +104,8 @@ Ows4js.Filter.prototype.isLessThanOrEqualTo = function(value){
             }
         }
     };
-    this.tmp.PropertyName = {};
+    // Delete the tmp property to prevent jsonix fail.
+    delete this.tmp;
     return this;
 };
 
@@ -117,7 +123,8 @@ Ows4js.Filter.prototype.isGreaterThan = function(value){
             }
         }
     };
-    this.tmp.PropertyName = {};
+    // Delete the tmp property to prevent jsonix fail.
+    delete this.tmp;
     return this;
 };
 
@@ -135,7 +142,8 @@ Ows4js.Filter.prototype.isLessThan = function(value){
             }
         }
     };
-    this.tmp.PropertyName = {};
+    // Delete the tmp property to prevent jsonix fail.
+    delete this.tmp;
     return this;
 };
 
@@ -153,7 +161,8 @@ Ows4js.Filter.prototype.isGreaterThanOrEqualTo = function(value){
             }
         }
     };
-    this.tmp.PropertyName = {};
+    // Delete the tmp property to prevent jsonix fail.
+    delete this.tmp;
     return this;
 };
 
@@ -171,7 +180,8 @@ Ows4js.Filter.prototype.isNotEqualTo = function(value){
             }
         }
     };
-    this.tmp.PropertyName = {};
+    // Delete the tmp property to prevent jsonix fail.
+    delete this.tmp;
     return this;
 };
 
@@ -334,8 +344,6 @@ Ows4js.Filter.JsonixContext = new Jsonix.Context(
 Ows4js.Filter.prototype.getXML = function(){
     var doc;
     var marshaller= Ows4js.Filter.JsonixContext.createMarshaller();
-    // Delete the tmp property to prevent jsonix fail.
-    delete this.tmp;
     doc = marshaller.marshalDocument(this);
     return doc;
 };
