@@ -4,9 +4,11 @@
 
 OGC Web Services Library for JavaScript.
 
+> This Library is based in the awesome work of [Jsonix](https://github.com/highsource/jsonix) & [ogc-schemas](https://github.com/highsource/ogc-schemas) libraries.
+
 ## Getting started
 
-###Clone de repository and install dependecies
+###Clone de repository and install dependencies
 
 ```bash
 git clone https://github.com/juanmav/ows.js.git
@@ -22,7 +24,7 @@ grunt serve
 **Go to the browser and open the dev console**
 
 - [http://127.0.0.1:9000/examples/](http://127.0.0.1:9000/examples/)
-- Press F12 (Chrome & Firerfox)
+- Press F12 (Chrome & Firefox)
 
 
 ### Or how to install ows.js in your project.
@@ -81,6 +83,13 @@ grunt serve
 - PropertyIsNull
 - Improve Unit-Tests (Help is extremely Welcome here :D)
 - DescribeRecord
+
+#### in the Future
+
+- WPS
+- WFS
+- SLD
+- etc...
 
 ### How to build ows.min.js
 
