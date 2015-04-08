@@ -57,8 +57,8 @@
         console.info('Some OGC Filter Examples!');
         // Create a Filter
         var filter = new Ows4js.Filter().PropertyName('dc:title').isLike('%water%');
-        //filter = filter.and(new Ows4js.Filter().PropertyName('dc:subject').isLike('%polution%'));
-        //filter = filter.and(new Ows4js.Filter().BBOX(-80, 150, 80, -150, 'urn:x-ogc:def:crs:EPSG:6.11:4326'));
+        filter = filter.and(new Ows4js.Filter().PropertyName('dc:subject').isLike('%polution%'));
+        filter = filter.and(new Ows4js.Filter().BBOX(-80, 150, 80, -150, 'urn:x-ogc:def:crs:EPSG:6.11:4326'));
 
         console.log('AND & AND Filter');
         console.log(filter);
@@ -73,9 +73,9 @@
 
         console.log('AND & OR Filter combined!');
 
-        /*var filter3 = filter.and(filter2);
-        console.log(filter3);
-        console.log(filter3.getXML());*/
+        //var filter3 = filter.and(filter2);
+        //console.log(filter3);
+        //console.log(filter3.getXML());
 
         console.log('OR & AND Filter combined!');
 

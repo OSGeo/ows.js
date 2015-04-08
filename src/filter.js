@@ -193,7 +193,7 @@ Ows4js.Filter.prototype.and = function(filter){
         this['ogc:Filter'].logicOps = {
             'ogc:And':{
                 TYPE_NAME: "Filter_1_1_0.BinaryLogicOpType",
-                ops: []
+                comparisonOpsOrSpatialOpsOrLogicOps: []
             }
         };
         /**
@@ -205,18 +205,18 @@ Ows4js.Filter.prototype.and = function(filter){
          */
         if (typeof this['ogc:Filter'].comparisonOps !== 'undefined') {
             // Only has one previous filter and it is a comparison operator.
-            this['ogc:Filter'].logicOps['ogc:And'].ops = [this['ogc:Filter'].comparisonOps].concat(Ows4js.Filter.getPreviousOperator(filter));
+            this['ogc:Filter'].logicOps['ogc:And'].comparisonOpsOrSpatialOpsOrLogicOps = [this['ogc:Filter'].comparisonOps].concat(Ows4js.Filter.getPreviousOperator(filter));
             delete this['ogc:Filter'].comparisonOps;
         } else if (typeof this['ogc:Filter'].spatialOps !== 'undefined'){
             // Only has one previous filter and it is a spatial operator.
-            this['ogc:Filter'].logicOps['ogc:And'].ops = [this['ogc:Filter'].spatialOps].concat(Ows4js.Filter.getPreviousOperator(filter));
+            this['ogc:Filter'].logicOps['ogc:And'].comparisonOpsOrSpatialOpsOrLogicOps = [this['ogc:Filter'].spatialOps].concat(Ows4js.Filter.getPreviousOperator(filter));
             delete this['ogc:Filter'].spatialOps;
         } else {
             throw 'Not Implemented yet, another operators';
         }
     } else {
         // It has two or more previous operators. TODO They must be And Operator fix to accept 'ogc:Or'.
-        this['ogc:Filter'].logicOps['ogc:And'].ops = this['ogc:Filter'].logicOps['ogc:And'].ops.concat(Ows4js.Filter.getPreviousOperator(filter));
+        this['ogc:Filter'].logicOps['ogc:And'].comparisonOpsOrSpatialOpsOrLogicOps = this['ogc:Filter'].logicOps['ogc:And'].comparisonOpsOrSpatialOpsOrLogicOps.concat(Ows4js.Filter.getPreviousOperator(filter));
     }
     return this;
 };//*/
@@ -227,7 +227,7 @@ Ows4js.Filter.prototype.or = function(filter){
         this['ogc:Filter'].logicOps = {
             'ogc:Or':{
                 TYPE_NAME: "Filter_1_1_0.BinaryLogicOpType",
-                ops: []
+                comparisonOpsOrSpatialOpsOrLogicOps: []
             }
         };
         /**
@@ -239,18 +239,18 @@ Ows4js.Filter.prototype.or = function(filter){
          */
         if (typeof this['ogc:Filter'].comparisonOps !== 'undefined') {
             // Only has one previous filter and it is a comparison operator.
-            this['ogc:Filter'].logicOps['ogc:Or'].ops = [this['ogc:Filter'].comparisonOps].concat(Ows4js.Filter.getPreviousOperator(filter));
+            this['ogc:Filter'].logicOps['ogc:Or'].comparisonOpsOrSpatialOpsOrLogicOps = [this['ogc:Filter'].comparisonOps].concat(Ows4js.Filter.getPreviousOperator(filter));
             delete this['ogc:Filter'].comparisonOps;
         } else if (typeof this['ogc:Filter'].spatialOps !== 'undefined'){
             // Only has one previous filter and it is a spatial operator.
-            this['ogc:Filter'].logicOps['ogc:Or'].ops = [this['ogc:Filter'].spatialOps].concat(Ows4js.Filter.getPreviousOperator(filter));
+            this['ogc:Filter'].logicOps['ogc:Or'].comparisonOpsOrSpatialOpsOrLogicOps = [this['ogc:Filter'].spatialOps].concat(Ows4js.Filter.getPreviousOperator(filter));
             delete this['ogc:Filter'].spatialOps;
         } else {
             throw 'Not Implemented yet, another operators';
         }
     } else {
         // It has two or more previous operators. TODO They must be And Operator fix to accept 'ogc:And'.
-        this['ogc:Filter'].logicOps['ogc:Or'].ops = this['ogc:Filter'].logicOps['ogc:Or'].ops.concat(Ows4js.Filter.getPreviousOperator(filter));
+        this['ogc:Filter'].logicOps['ogc:Or'].comparisonOpsOrSpatialOpsOrLogicOps = this['ogc:Filter'].logicOps['ogc:Or'].comparisonOpsOrSpatialOpsOrLogicOps.concat(Ows4js.Filter.getPreviousOperator(filter));
     }
     return this;
 };
