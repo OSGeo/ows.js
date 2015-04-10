@@ -65,7 +65,7 @@ grunt serve
     - OR
   - Spatial Operatos:
     - BBOX
-  -Comparison
+  - Comparison
     - isLike
     - isBetween
     - isEqualTo
