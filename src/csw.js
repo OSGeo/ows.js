@@ -167,7 +167,7 @@ Ows4js.Csw.GetRecords = function(startPosition, maxRecords, query){
         TYPE_NAME: "CSW_2_0_2.GetRecordsType",
         abstractQuery: query,
         startPosition: startPosition,
-        maxRecords: 10,
+        maxRecords: maxRecords,
         resultType: "results",
         service: "CSW",
         version: "2.0.2"
