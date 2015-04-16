@@ -1,44 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8"/>
-        <title>csw4js</title>
-        <style type="text/css">
-            body {
-                background-color: #ffffff;
-                font-family: arial, verdana, sans-serif;
-                text-align: left;
-                float: left;
-            }
-            .flat {
-                border: 0px;
-            }
-            header {
-                display: inline-block;
-            }
-            .header-img {
-                float: left;
-                margin: 0px 15px 15px 0px;
-                border: 0;
-            }
-        </style>
-        <script type="text/javascript" src="../src/csw.js"></script>
-    </head>
-    <body>
-        <header>
-            <h1>csw4js</h1>
-        </header>
-        <section>
-            <script type="text/javascript">
-               // by URL via CSW
-               //var csw = new Ows4js.Csw('http://demo.pycsw.org/cite/csw');
-               // by URL via doc
-               var csw = new Ows4js.Csw('./caps.xml');
-            </script>
-        </section>
-        <footer>
-            <a href="http://validator.w3.org/check?verbose=1&amp;uri=referer" title="Valid HTML 5!"><img class="flat" src="http://www.w3.org/html/logo/downloads/HTML5_Badge_32.png" alt="Valid HTML 5!" height="32" width="32"/></a>
-            <a href="http://jigsaw.w3.org/css-validator/check/referer" title="Valid CSS!"><img class="flat" src="http://jigsaw.w3.org/css-validator/images/vcss-blue" alt="Valid CSS!" height="31" width="88"/></a>
-        </footer>
-    </body>
+<head>
+    <meta charset="utf-8"/>
+    <title>csw4js</title>
+    <style type="text/css">
+        body {
+            background-color: #ffffff;
+            font-family: arial, verdana, sans-serif;
+            text-align: left;
+            float: left;
+        }
+        .flat {
+            border: 0;
+        }
+        header {
+            display: inline-block;
+        }
+        .header-img {
+            float: left;
+            margin: 0 15px 15px 0;
+            border: 0;
+        }
+    </style>
+    <script type="text/javascript" src="../node_modules/jsonix/jsonix.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/OWS_1_0_0.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/DC_1_1.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/DCT.js"></script>
+    <script type="text/javascript" src="../node_modules/w3c-schemas/lib/XLink_1_0.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/CSW_2_0_2.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/Filter_1_1_0.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/GML_3_1_1.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/SMIL_2_0_Language.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/SMIL_2_0.js"></script>
+    <script type="text/javascript" src="../dist/ows.min.js"></script>
+    <!--<script type="text/javascript" src="../src/ows.js"></script>
+    <script type="text/javascript" src="../src/filter.js"></script>
+    <script type="text/javascript" src="../src/csw.js"></script>-->
+
+</head>
+<body>
+<header>
+    <h1>csw4js</h1>
+</header>
+<section>
+    <script type="text/javascript">
+        // Create csw client
+        // data.noaa.gov
+        var csw = new Ows4js.Csw('../noa/csw');
+
+        console.debug(csw);
+
+        // MaxRecords
+        console.log('Get Constraint MaxRecordDefault property');
+        console.debug(csw.operationsMetadata.constraint.filter(function(element){ return element.name == 'MaxRecordDefault' })[0].value[0]);
+
+        console.info('Some OGC Filter Examples!');
+        // Create a Filter
+        var filter = new Ows4js.Filter().PropertyName('dc:title').isLike('%water%');
+        filter = filter.and(new Ows4js.Filter().PropertyName('dc:subject').isLike('%polution%'));
+        filter = filter.and(new Ows4js.Filter().BBOX(-80, 150, 80, -150, 'urn:x-ogc:def:crs:EPSG:6.11:4326'));
+
+        console.log('AND & AND Filter');
+        console.log(filter);
+        console.log(filter.getXML());
+
+        var filter2 = new Ows4js.Filter().PropertyName('dc:title').isLike('%water%');
+        filter2 = filter2.or(new Ows4js.Filter().PropertyName('dc:subject').isLike('%polution%'));
+
+        console.log('OR Filter');
+        console.log(filter2);
+        console.log(filter2.getXML());
+
+        console.log('AND & OR Filter combined!');
+
+        //var filter3 = filter.and(filter2);
+        //console.log(filter3);
+        //console.log(filter3.getXML());
+
+        console.log('OR & AND Filter combined!');
+
+        var filter4 = filter2.or(filter);
+        console.log(filter4);
+        console.log(filter4.getXML());
+
+        console.info('GetDomain Example!');
+        // GetDomain
+        var domain = csw.GetDomain('dc:type');
+
+        console.log(domain);
+
+        console.info('Some CSW GetRecord Example!');
+
+        // GetRecords
+        var results = csw.GetRecords(1,10,filter);
+
+        console.log(results);
+
+        // GetRecords Without Filter;
+
+        var results2 = csw.GetRecords(1,10);
+
+        console.log(results2);
+
+        // GetRecordById
+        var byid = csw.GetRecordById([
+            'gov.noaa.nodc:8800169'
+        ]);
+
+        console.log(byid);
+
+    </script>
+</section>
+<footer>
+    <a href="http://validator.w3.org/check?verbose=1&amp;uri=referer" title="Valid HTML 5!"><img class="flat" src="http://www.w3.org/html/logo/downloads/HTML5_Badge_32.png" alt="Valid HTML 5!" height="32" width="32"/></a>
+    <a href="http://jigsaw.w3.org/css-validator/check/referer" title="Valid CSS!"><img class="flat" src="http://jigsaw.w3.org/css-validator/images/vcss-blue" alt="Valid CSS!" height="31" width="88"/></a>
+</footer>
+</body>
 </html>
