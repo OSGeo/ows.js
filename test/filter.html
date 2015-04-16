@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>QUnit OGC Filter4js Test</title>
+    <link rel="stylesheet" href="../node_modules/qunitjs/qunit/qunit.css">
+    <script type="text/javascript" src="../node_modules/qunitjs/qunit/qunit.js"></script>
+    <script type="text/javascript" src="../node_modules/jsonix/jsonix.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/CSW_2_0_2_Full.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/Filter_1_1_0.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/GML_3_1_1.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/SMIL_2_0_Language.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/SMIL_2_0.js"></script>
+    <script type="text/javascript" src="../src/ows.js"></script>
+    <script type="text/javascript" src="../src/filter.js"></script>
+</head>
+<body>
+<div id="qunit"></div>
+<div id="qunit-fixture"></div>
+<script type="text/javascript">
+
+    test('Creation Filter Test', function() {
+        var filter = new Ows4js.Filter().PropertyName('dc:title').isLike('%water%');
+        strictEqual(filter.value.comparisonOps.value.literal.content[0], "%water%");
+        strictEqual(filter.value.comparisonOps.value.propertyName.content, "dc:title");
+    });//*/
+
+    test('Like Filter Test', function(assert){
+        var filter = new Ows4js.Filter().PropertyName('dc:title').isLike('%water%');
+        console.debug(filter.getXML());
+        assert.ok(true, 'XML generated');
+    });//*/
+
+    test('Two isLike Filter', function(assert){
+        var filter = new Ows4js.Filter().PropertyName('dc:title').isLike('%water%');
+        filter = filter.and(new Ows4js.Filter().PropertyName('dc:subject').isLike('%polution%'));
+        console.debug(filter);
+        console.debug(filter.getXML());
+        assert.ok(true, 'XML generated');
+    });//*/
+
+    test('isLike and BBOX Filter', function(assert){
+        var filter = new Ows4js.Filter().PropertyName('dc:title').isLike('%water%');
+        filter = filter.and(new Ows4js.Filter().BBOX(-80, 150, 80, -150, 'urn:x-ogc:def:crs:EPSG:6.11:4326'));
+        console.debug(filter);
+        console.debug(filter.getXML());
+        assert.ok(true, 'XML generated');
+    });//*/
+
+    test('BBOX and isLike Filter', function(assert){
+        var filter = new Ows4js.Filter().BBOX(-80, 150, 80, -150, 'urn:x-ogc:def:crs:EPSG:6.11:4326');
+        filter = filter.and(new Ows4js.Filter().PropertyName('dc:title').isLike('%water%'));
+        console.debug(filter);
+        console.debug(filter.getXML());
+        assert.ok(true, 'XML generated');
+    });//*/
+
+    test('isLike, BBOX and isLike Filter', function (assert){
+        var filter = new Ows4js.Filter().PropertyName('dc:title').isLike('%water%');
+        var filter2 = new Ows4js.Filter().BBOX(-80, 150, 80, -150, 'urn:x-ogc:def:crs:EPSG:6.11:4326');
+        var filter3 = new Ows4js.Filter().PropertyName('dc:subject').isLike('%polution%');
+        filter = filter.and(filter2).and(filter3);
+        console.debug(filter);
+        console.debug(filter.getXML());
+        assert.ok(true, 'XML generated');
+    });//*/
+
+</script>
+</body>
+</html>
