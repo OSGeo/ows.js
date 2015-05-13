@@ -17,9 +17,9 @@
         "ogc"
     ],
     "dependencies": {
-        "jsonix": "2.1.4",
-        "ogc-schemas": "2.0.2",
-        "w3c-schemas" : "1.0.4"
+        "jsonix": "2.2.1",
+        "ogc-schemas": "2.2.0",
+        "w3c-schemas": "1.0.4"
     },
     "license": "MIT",
     "ignore": [
