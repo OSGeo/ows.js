@@ -32,10 +32,20 @@
     <script type="text/javascript" src="../node_modules/ogc-schemas/lib/GML_3_1_1.js"></script>
     <script type="text/javascript" src="../node_modules/ogc-schemas/lib/SMIL_2_0_Language.js"></script>
     <script type="text/javascript" src="../node_modules/ogc-schemas/lib/SMIL_2_0.js"></script>
-    <script type="text/javascript" src="../dist/ows.min.js"></script>
-    <!--<script type="text/javascript" src="../src/ows.js"></script>
+    <!-- ISO Profile -->
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/ISO19139_GCO_20060504.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/ISO19139_GMD_20060504.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/GML_3_2_1.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/GML_3_2_0.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/ISO19139_GTS_20060504.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/ISO19139_GSS_20060504.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/ISO19139_GSR_20060504.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/ISO19139_GMX_20060504.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/ISO19139_SRV_20060504.js"></script>
+    <!-- ISO Profile -->
+    <script type="text/javascript" src="../src/ows.js"></script>
     <script type="text/javascript" src="../src/filter.js"></script>
-    <script type="text/javascript" src="../src/csw.js"></script>-->
+    <script type="text/javascript" src="../src/csw.js"></script>
 
 </head>
 <body>
@@ -44,9 +54,31 @@
 </header>
 <section>
     <script type="text/javascript">
+        var cswConfig = [
+            [
+                OWS_1_0_0,
+                DC_1_1,
+                DCT,
+                XLink_1_0,
+                SMIL_2_0,
+                SMIL_2_0_Language,
+                GML_3_1_1,
+                Filter_1_1_0,
+                CSW_2_0_2
+            ],
+            {
+                namespacePrefixes: {
+                    'http://www.opengis.net/cat/csw/2.0.2': 'csw',
+                    "http://www.opengis.net/ogc": 'ogc',
+                    "http://www.opengis.net/gml": "gml"
+                },
+                mappingStyle : 'simplified'
+            }
+        ];
+
         // Create csw client
         // data.noaa.gov
-        var csw = new Ows4js.Csw('../noa/csw');
+        var csw = new Ows4js.Csw('../noa/csw', cswConfig);
 
         console.debug(csw);
 
@@ -97,10 +129,15 @@
         console.log(results);
 
         // GetRecords Without Filter;
-
         var results2 = csw.GetRecords(1,10);
 
         console.log(results2);
+
+        // Set outputSchema the default is 'http://www.opengis.net/cat/csw/2.0.2'
+        // or can be used this one too 'http://www.isotc211.org/2005/gmd'
+        var results3 = csw.GetRecords(1,10, null, 'http://www.opengis.net/cat/csw/2.0.2');
+
+        console.log(results3);
 
         // GetRecordById
         var byid = csw.GetRecordById([

@@ -5,7 +5,16 @@
 
 Ows4js.Csw ={};
 
-Ows4js.Csw = function(url) {
+Ows4js.Csw = function(url, config) {
+    /**
+     * Jsonix Configuration
+     * */
+
+    if (config == null)
+        throw 'Missing Configuration! It is a must to CSW to know the profile';
+
+    Ows4js.Csw.jsonnixContext = new Jsonix.Context(config[0], config[1]);
+
     // init by doing a GetCapabilities and parsing metadata
     this.url = url;
     console.log(this.url);
@@ -54,7 +63,7 @@ Ows4js.Csw = function(url) {
  *
  * */
 
-Ows4js.Csw.prototype.GetRecords = function(startPosition, maxRecords, filter) {
+Ows4js.Csw.prototype.GetRecords = function(startPosition, maxRecords, filter, outputSchema) {
 
     var query;
     if (filter === undefined || filter === null) {
@@ -64,7 +73,7 @@ Ows4js.Csw.prototype.GetRecords = function(startPosition, maxRecords, filter) {
          query = new Ows4js.Csw.Query('full', new Ows4js.Csw.Constraint(filter));
     }
     // Create de GetRecords Action.
-    var recordAction = new Ows4js.Csw.GetRecords(startPosition, maxRecords, query);
+    var recordAction = new Ows4js.Csw.GetRecords(startPosition, maxRecords, query, outputSchema);
     // XML to Post.
     var myXML = Ows4js.Csw.marshalDocument(recordAction);
     // Post XML
@@ -73,29 +82,6 @@ Ows4js.Csw.prototype.GetRecords = function(startPosition, maxRecords, filter) {
     var httpRequest = Ows4js.Util.httpPost(this.url, "application/xml", myXML);
     return  Ows4js.Csw.unmarshalDocument(httpRequest.responseXML);
 };
-
-// TODO check the dependencies. Maybe the dependencies must passed through the constructor?
-Ows4js.Csw.jsonnixContext = new Jsonix.Context(
-    [
-        OWS_1_0_0,
-        DC_1_1,
-        DCT,
-        XLink_1_0,
-        SMIL_2_0,
-        SMIL_2_0_Language,
-        GML_3_1_1,
-        Filter_1_1_0,
-        CSW_2_0_2
-    ],
-    {
-        namespacePrefixes: {
-            'http://www.opengis.net/cat/csw/2.0.2': 'csw',
-            "http://www.opengis.net/ogc": 'ogc',
-            "http://www.opengis.net/gml": "gml"
-        },
-        mappingStyle : 'simplified'
-    }
-);
 
 Ows4js.Csw.marshalDocument = function(object){
     return Ows4js.Csw.jsonnixContext.createMarshaller().marshalDocument(object);
@@ -162,7 +148,7 @@ Ows4js.Csw.Constraint = function(filter){
  * This Objects already use the simple mapping style from jsonix
  * */
 
-Ows4js.Csw.GetRecords = function(startPosition, maxRecords, query){
+Ows4js.Csw.GetRecords = function(startPosition, maxRecords, query, outputSchema){
     this['csw:GetRecords'] = {
         TYPE_NAME: "CSW_2_0_2.GetRecordsType",
         abstractQuery: query,
@@ -172,6 +158,12 @@ Ows4js.Csw.GetRecords = function(startPosition, maxRecords, query){
         service: "CSW",
         version: "2.0.2"
     };
+
+    if (outputSchema){
+        this['csw:GetRecords'].outputSchema = outputSchema;
+    }
+
+    console.log(this);
 };
 
 /**

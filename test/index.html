@@ -23,7 +23,29 @@
         <div id="qunit"></div>
         <div id="qunit-fixture"></div>
         <script type="text/javascript">
-            var csw = new Ows4js.Csw('../examples/pycsw_cite.xml');
+            var cswConfig = [
+                [
+                    OWS_1_0_0,
+                    DC_1_1,
+                    DCT,
+                    XLink_1_0,
+                    SMIL_2_0,
+                    SMIL_2_0_Language,
+                    GML_3_1_1,
+                    Filter_1_1_0,
+                    CSW_2_0_2
+                ],
+                {
+                    namespacePrefixes: {
+                        'http://www.opengis.net/cat/csw/2.0.2': 'csw',
+                        "http://www.opengis.net/ogc": 'ogc',
+                        "http://www.opengis.net/gml": "gml"
+                    },
+                    mappingStyle : 'simplified'
+                }
+            ];
+
+            var csw = new Ows4js.Csw('../examples/pycsw_cite.xml', cswConfig);
 
             test('Smoke tests', function() {
                 strictEqual(csw.url, '../examples/pycsw_cite.xml', 'Valid URL');
@@ -57,6 +79,8 @@
                 var false_value = csw.getOperationByName('invalid');
 
                 strictEqual(false_value, undefined, 'Invalid operation');
+
+                console.log(csw.filterCapabilities);
 
                 strictEqual(csw.filterCapabilities['ogc:Filter_Capabilities'].spatialCapabilities.geometryOperands.geometryOperand.length, 4, 'Valid number of geometries');
                 strictEqual(csw.filterCapabilities['ogc:Filter_Capabilities'].spatialCapabilities.spatialOperators.spatialOperator.length, 11, 'Valid number of operators');
