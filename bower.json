@@ -1,6 +1,6 @@
 {
     "name": "ows.js",
-    "version": "0.0.1",
+    "version": "0.1.1",
     "homepage": "https://github.com/OSGeo/ows.js",
     "authors": [
         "Juan Manuel Vicente <juanma.v82@gmail.com>",
@@ -19,7 +19,7 @@
     "dependencies": {
         "jsonix": "2.2.1",
         "ogc-schemas": "2.2.0",
-        "w3c-schemas": "1.0.4"
+        "w3c-schemas": "1.1.0"
     },
     "license": "MIT",
     "ignore": [

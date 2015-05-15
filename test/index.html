@@ -85,7 +85,7 @@
                 strictEqual(csw.filterCapabilities['ogc:Filter_Capabilities'].spatialCapabilities.geometryOperands.geometryOperand.length, 4, 'Valid number of geometries');
                 strictEqual(csw.filterCapabilities['ogc:Filter_Capabilities'].spatialCapabilities.spatialOperators.spatialOperator.length, 11, 'Valid number of operators');
                 strictEqual(csw.filterCapabilities['ogc:Filter_Capabilities'].scalarCapabilities.comparisonOperators.comparisonOperator.length, 9, 'Valid number of comparisons');
-                strictEqual(csw.filterCapabilities['ogc:Filter_Capabilities'].scalarCapabilities.arithmeticOperators.simpleArithmeticOrFunctions.length, 1, 'Valid number of functions');
+                strictEqual(csw.filterCapabilities['ogc:Filter_Capabilities'].scalarCapabilities.arithmeticOperators.ops.length, 1, 'Valid number of functions');
             });
         </script>
     </body>

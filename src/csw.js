@@ -76,6 +76,8 @@ Ows4js.Csw.prototype.GetRecords = function(startPosition, maxRecords, filter, ou
     var recordAction = new Ows4js.Csw.GetRecords(startPosition, maxRecords, query, outputSchema);
     // XML to Post.
     var myXML = Ows4js.Csw.marshalDocument(recordAction);
+    console.log(recordAction);
+    console.log(myXML);
     // Post XML
     // TODO change the httpRequest sync to async.
     // TODO CallBack or a Promise ?

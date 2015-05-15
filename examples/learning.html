@@ -42,8 +42,30 @@
 </header>
 <section>
     <script type="text/javascript">
+        var cswConfig = [
+            [
+                OWS_1_0_0,
+                DC_1_1,
+                DCT,
+                XLink_1_0,
+                SMIL_2_0,
+                SMIL_2_0_Language,
+                GML_3_1_1,
+                CSW_2_0_2,
+                Filter_1_1_0
+            ],
+            {
+                namespacePrefixes: {
+                    'http://www.opengis.net/cat/csw/2.0.2': 'csw',
+                    "http://www.opengis.net/ogc": 'ogc',
+                    "http://www.opengis.net/gml": "gml"
+                },
+                mappingStyle : 'simplified'
+            }
+        ];
+
         // by URL via CSW
-        //var csw = new Ows4js.Csw('http://demo.pycsw.org/cite/csw');
+        var csw = new Ows4js.Csw('../noa/csw', cswConfig);
 
         // Raw XML to Javascript Object
         // Only BBOX

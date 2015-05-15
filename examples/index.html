@@ -47,6 +47,8 @@
     <script type="text/javascript" src="../src/filter.js"></script>
     <script type="text/javascript" src="../src/csw.js"></script>
 
+
+
 </head>
 <body>
 <header>
@@ -80,21 +82,21 @@
         // data.noaa.gov
         var csw = new Ows4js.Csw('../noa/csw', cswConfig);
 
-        console.debug(csw);
+        //console.debug(csw);
 
         // MaxRecords
-        console.log('Get Constraint MaxRecordDefault property');
-        console.debug(csw.operationsMetadata.constraint.filter(function(element){ return element.name == 'MaxRecordDefault' })[0].value[0]);
+        //console.log('Get Constraint MaxRecordDefault property');
+        //console.debug(csw.operationsMetadata.constraint.filter(function(element){ return element.name == 'MaxRecordDefault' })[0].value[0]);
 
         console.info('Some OGC Filter Examples!');
         // Create a Filter
         var filter = new Ows4js.Filter().PropertyName('dc:title').isLike('%water%');
         filter = filter.and(new Ows4js.Filter().PropertyName('dc:subject').isLike('%polution%'));
-        filter = filter.and(new Ows4js.Filter().BBOX(-80, 150, 80, -150, 'urn:x-ogc:def:crs:EPSG:6.11:4326'));
+        //filter = filter.and(new Ows4js.Filter().BBOX(-80, 150, 80, -150, 'urn:x-ogc:def:crs:EPSG:6.11:4326'));
 
         console.log('AND & AND Filter');
         console.log(filter);
-        console.log(filter.getXML());
+        //console.log(filter.getXML());
 
         var filter2 = new Ows4js.Filter().PropertyName('dc:title').isLike('%water%');
         filter2 = filter2.or(new Ows4js.Filter().PropertyName('dc:subject').isLike('%polution%'));
@@ -144,8 +146,7 @@
             'gov.noaa.nodc:8800169'
         ]);
 
-        console.log(byid);
-
+        console.log(byid);//*/
     </script>
 </section>
 <footer>
