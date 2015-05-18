@@ -493,7 +493,7 @@ Ows4js.Filter.prototype.and = function(filter){
         this['ogc:Filter'].logicOps = {
             'ogc:And':{
                 TYPE_NAME: "Filter_1_1_0.BinaryLogicOpType",
-                comparisonOpsOrSpatialOpsOrLogicOps: []
+                //comparisonOpsOrSpatialOpsOrLogicOps: []
             }
         };
         /**
@@ -505,18 +505,19 @@ Ows4js.Filter.prototype.and = function(filter){
          */
         if (typeof this['ogc:Filter'].comparisonOps !== 'undefined') {
             // Only has one previous filter and it is a comparison operator.
-            this['ogc:Filter'].logicOps['ogc:And'].comparisonOpsOrSpatialOpsOrLogicOps = [this['ogc:Filter'].comparisonOps].concat(Ows4js.Filter.getPreviousOperator(filter));
+            // Now is ops before was comparisonOpsOrSpatialOpsOrLogicOps
+            this['ogc:Filter'].logicOps['ogc:And'].ops = [this['ogc:Filter'].comparisonOps].concat(Ows4js.Filter.getPreviousOperator(filter));
             delete this['ogc:Filter'].comparisonOps;
         } else if (typeof this['ogc:Filter'].spatialOps !== 'undefined'){
             // Only has one previous filter and it is a spatial operator.
-            this['ogc:Filter'].logicOps['ogc:And'].comparisonOpsOrSpatialOpsOrLogicOps = [this['ogc:Filter'].spatialOps].concat(Ows4js.Filter.getPreviousOperator(filter));
+            this['ogc:Filter'].logicOps['ogc:And'].ops = [this['ogc:Filter'].spatialOps].concat(Ows4js.Filter.getPreviousOperator(filter));
             delete this['ogc:Filter'].spatialOps;
         } else {
             throw 'Not Implemented yet, another operators';
         }
     } else {
         // It has two or more previous operators. TODO They must be And Operator fix to accept 'ogc:Or'.
-        this['ogc:Filter'].logicOps['ogc:And'].comparisonOpsOrSpatialOpsOrLogicOps = this['ogc:Filter'].logicOps['ogc:And'].comparisonOpsOrSpatialOpsOrLogicOps.concat(Ows4js.Filter.getPreviousOperator(filter));
+        this['ogc:Filter'].logicOps['ogc:And'].ops = this['ogc:Filter'].logicOps['ogc:And'].ops.concat(Ows4js.Filter.getPreviousOperator(filter));
     }
     return this;
 };//*/
@@ -527,7 +528,7 @@ Ows4js.Filter.prototype.or = function(filter){
         this['ogc:Filter'].logicOps = {
             'ogc:Or':{
                 TYPE_NAME: "Filter_1_1_0.BinaryLogicOpType",
-                comparisonOpsOrSpatialOpsOrLogicOps: []
+                //comparisonOpsOrSpatialOpsOrLogicOps: []
             }
         };
         /**
@@ -539,18 +540,18 @@ Ows4js.Filter.prototype.or = function(filter){
          */
         if (typeof this['ogc:Filter'].comparisonOps !== 'undefined') {
             // Only has one previous filter and it is a comparison operator.
-            this['ogc:Filter'].logicOps['ogc:Or'].comparisonOpsOrSpatialOpsOrLogicOps = [this['ogc:Filter'].comparisonOps].concat(Ows4js.Filter.getPreviousOperator(filter));
+            this['ogc:Filter'].logicOps['ogc:Or'].ops = [this['ogc:Filter'].comparisonOps].concat(Ows4js.Filter.getPreviousOperator(filter));
             delete this['ogc:Filter'].comparisonOps;
         } else if (typeof this['ogc:Filter'].spatialOps !== 'undefined'){
             // Only has one previous filter and it is a spatial operator.
-            this['ogc:Filter'].logicOps['ogc:Or'].comparisonOpsOrSpatialOpsOrLogicOps = [this['ogc:Filter'].spatialOps].concat(Ows4js.Filter.getPreviousOperator(filter));
+            this['ogc:Filter'].logicOps['ogc:Or'].ops = [this['ogc:Filter'].spatialOps].concat(Ows4js.Filter.getPreviousOperator(filter));
             delete this['ogc:Filter'].spatialOps;
         } else {
             throw 'Not Implemented yet, another operators';
         }
     } else {
         // It has two or more previous operators. TODO They must be And Operator fix to accept 'ogc:And'.
-        this['ogc:Filter'].logicOps['ogc:Or'].comparisonOpsOrSpatialOpsOrLogicOps = this['ogc:Filter'].logicOps['ogc:Or'].comparisonOpsOrSpatialOpsOrLogicOps.concat(Ows4js.Filter.getPreviousOperator(filter));
+        this['ogc:Filter'].logicOps['ogc:Or'].ops = this['ogc:Filter'].logicOps['ogc:Or'].ops.concat(Ows4js.Filter.getPreviousOperator(filter));
     }
     return this;
 };
@@ -725,6 +726,8 @@ Ows4js.Csw.prototype.GetRecords = function(startPosition, maxRecords, filter, ou
     var recordAction = new Ows4js.Csw.GetRecords(startPosition, maxRecords, query, outputSchema);
     // XML to Post.
     var myXML = Ows4js.Csw.marshalDocument(recordAction);
+    console.log(recordAction);
+    console.log(myXML);
     // Post XML
     // TODO change the httpRequest sync to async.
     // TODO CallBack or a Promise ?
@@ -802,7 +805,7 @@ Ows4js.Csw.GetRecords = function(startPosition, maxRecords, query, outputSchema)
         TYPE_NAME: "CSW_2_0_2.GetRecordsType",
         abstractQuery: query,
         startPosition: startPosition,
-        maxRecords: 10,
+        maxRecords: maxRecords,
         resultType: "results",
         service: "CSW",
         version: "2.0.2"
