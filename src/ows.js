@@ -270,21 +270,19 @@ Ows4js.Util.httpGet = function(url) {
     }
 };
 
-Ows4js.Util.httpPost = function(url, lang, request) {
-    var httpRequest;
-    try {
-        try {
-            httpRequest = new ActiveXObject('Microsoft.XMLHTTP');
-        } catch (e) {
-            httpRequest = new XMLHttpRequest();
-        }
-        httpRequest.open('POST', url, false);
+Ows4js.Util.httpPost = function(url, lang, request, async) {
+    return new Promise(function(fulfill, reject){
+        var httpRequest = new XMLHttpRequest();
+        httpRequest.onreadystatechange=function() {
+            if (httpRequest.readyState==4 && httpRequest.status==200) {
+                console.log(request);
+                fulfill(httpRequest.responseXML);
+            }
+        };
+        httpRequest.open('POST', url, true);
         httpRequest.setRequestHeader('Accept-Language',lang);
         httpRequest.send(request);
-        return httpRequest;
-    } catch (e) {
-        throw(e);
-    }
+    });
 };
 
 Ows4js.Util.buildUrl = function(url, params) {

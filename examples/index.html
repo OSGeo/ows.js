@@ -82,17 +82,18 @@
         // data.noaa.gov
         var csw = new Ows4js.Csw('../noa/csw', cswConfig);
 
-        //console.debug(csw);
-
-        // MaxRecords
-        //console.log('Get Constraint MaxRecordDefault property');
-        //console.debug(csw.operationsMetadata.constraint.filter(function(element){ return element.name == 'MaxRecordDefault' })[0].value[0]);
+        csw.GetCapabilities().then(function(me){
+            // MaxRecords
+            console.log('Get Constraint MaxRecordDefault property');
+            console.debug(me);
+            console.debug(me.operationsMetadata.constraint.filter(function(element){ return element.name == 'MaxRecordDefault' })[0].value[0]);
+        });
 
         console.info('Some OGC Filter Examples!');
         // Create a Filter
         var filter = new Ows4js.Filter().PropertyName('dc:title').isLike('%water%');
         filter = filter.and(new Ows4js.Filter().PropertyName('dc:subject').isLike('%polution%'));
-        //filter = filter.and(new Ows4js.Filter().BBOX(-80, 150, 80, -150, 'urn:x-ogc:def:crs:EPSG:6.11:4326'));
+        filter = filter.and(new Ows4js.Filter().BBOX(-80, 150, 80, -150, 'urn:x-ogc:def:crs:EPSG:6.11:4326'));
 
         console.log('AND & AND Filter');
         console.log(filter);
@@ -117,36 +118,37 @@
         console.log(filter4);
         console.log(filter4.getXML());
 
-        console.info('GetDomain Example!');
         // GetDomain
-        var domain = csw.GetDomain('dc:type');
-
-        console.log(domain);
+        csw.GetDomain('dc:type').then(function(domain){
+            console.info('GetDomain Example!');
+            console.log(domain);
+        });
 
         console.info('Some CSW GetRecord Example!');
 
         // GetRecords
-        var results = csw.GetRecords(1,10,filter);
-
-        console.log(results);
+        csw.GetRecords(1,10,filter).then(function(result){
+            console.log(result)
+        });
 
         // GetRecords Without Filter;
-        var results2 = csw.GetRecords(1,10);
-
-        console.log(results2);
+        csw.GetRecords(1,10).then(function(result){
+            console.log(result);
+        });
 
         // Set outputSchema the default is 'http://www.opengis.net/cat/csw/2.0.2'
         // or can be used this one too 'http://www.isotc211.org/2005/gmd'
-        var results3 = csw.GetRecords(1,10, null, 'http://www.opengis.net/cat/csw/2.0.2');
-
-        console.log(results3);
+        var results3 = csw.GetRecords(1,10, null, 'http://www.opengis.net/cat/csw/2.0.2').then(function(result){
+            console.log(result);
+        });
 
         // GetRecordById
-        var byid = csw.GetRecordById([
+        csw.GetRecordById([
             'gov.noaa.nodc:8800169'
-        ]);
+        ]).then(function(byid){
+            console.log(byid);
+        });
 
-        console.log(byid);//*/
     </script>
 </section>
 <footer>
