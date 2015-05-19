@@ -270,21 +270,19 @@ Ows4js.Util.httpGet = function(url) {
     }
 };
 
-Ows4js.Util.httpPost = function(url, lang, request) {
-    var httpRequest;
-    try {
-        try {
-            httpRequest = new ActiveXObject('Microsoft.XMLHTTP');
-        } catch (e) {
-            httpRequest = new XMLHttpRequest();
-        }
-        httpRequest.open('POST', url, false);
+Ows4js.Util.httpPost = function(url, lang, request, async) {
+    return new Promise(function(fulfill, reject){
+        var httpRequest = new XMLHttpRequest();
+        httpRequest.onreadystatechange=function() {
+            if (httpRequest.readyState==4 && httpRequest.status==200) {
+                console.log(request);
+                fulfill(httpRequest.responseXML);
+            }
+        };
+        httpRequest.open('POST', url, true);
         httpRequest.setRequestHeader('Accept-Language',lang);
         httpRequest.send(request);
-        return httpRequest;
-    } catch (e) {
-        throw(e);
-    }
+    });
 };
 
 Ows4js.Util.buildUrl = function(url, params) {
@@ -656,6 +654,8 @@ Ows4js.Filter.prototype.getXML = function(){
 Ows4js.Csw ={};
 
 Ows4js.Csw = function(url, config) {
+    this.version = '2.0.2';
+
     /**
      * Jsonix Configuration
      * */
@@ -668,29 +668,6 @@ Ows4js.Csw = function(url, config) {
     // init by doing a GetCapabilities and parsing metadata
     this.url = url;
     console.log(this.url);
-    var getCapabilities = new Ows4js.Csw.GetCapabilities();
-    // XML to Post.
-    var myXML = Ows4js.Csw.marshalDocument(getCapabilities);
-    // TODO change the httpRequest sync to async.
-    // TODO CallBack or a Promise ?
-    var capabilities;
-    var httpRequest;
-    try{
-        httpRequest = Ows4js.Util.httpPost(this.url, "application/xml", myXML);
-        capabilities = Ows4js.Csw.unmarshalDocument(httpRequest.responseXML);
-    }catch (e){ // String file
-        httpRequest = Ows4js.Util.httpGet(this.url,"application/xml");
-        capabilities = Ows4js.Csw.unmarshalDocument(httpRequest.responseXML);
-    }
-
-    this.serviceIdentification = capabilities['csw:Capabilities'].serviceIdentification;
-    this.serviceProvider = capabilities['csw:Capabilities'].serviceProvider;
-    this.operationsMetadata = capabilities['csw:Capabilities'].operationsMetadata;
-    this.filterCapabilities = capabilities['csw:Capabilities'].filterCapabilities;
-
-    console.log(this);
-
-    this.version = '2.0.2';
 };
 
 /**
@@ -709,6 +686,31 @@ Ows4js.Csw = function(url, config) {
  * */
 
 /**
+ * Operation name: GetCapabilities
+ *
+ */
+
+Ows4js.Csw.prototype.GetCapabilities = function(){
+    var getCapabilities = new Ows4js.Csw.GetCapabilities();
+    // XML to Post.
+    var myXML = Ows4js.Csw.marshalDocument(getCapabilities);
+    // TODO change the httpRequest sync to async.
+    // TODO CallBack or a Promise ?
+    var me = this;
+    return Ows4js.Util.httpPost(this.url, "application/xml", myXML).then(function(responseXML){
+        var capabilities;
+        capabilities = Ows4js.Csw.unmarshalDocument(responseXML);
+        console.log(capabilities);
+        me.serviceIdentification = capabilities['csw:Capabilities'].serviceIdentification;
+        me.serviceProvider = capabilities['csw:Capabilities'].serviceProvider;
+        me.operationsMetadata = capabilities['csw:Capabilities'].operationsMetadata;
+        me.filterCapabilities = capabilities['csw:Capabilities'].filterCapabilities;
+        return me;
+    });
+};
+
+
+/**
  * Operation name: GetRecords
  *
  * */
@@ -720,7 +722,7 @@ Ows4js.Csw.prototype.GetRecords = function(startPosition, maxRecords, filter, ou
         query = new Ows4js.Csw.Query('full');
     } else {
         // Create Query
-         query = new Ows4js.Csw.Query('full', new Ows4js.Csw.Constraint(filter));
+        query = new Ows4js.Csw.Query('full', new Ows4js.Csw.Constraint(filter));
     }
     // Create de GetRecords Action.
     var recordAction = new Ows4js.Csw.GetRecords(startPosition, maxRecords, query, outputSchema);
@@ -731,8 +733,11 @@ Ows4js.Csw.prototype.GetRecords = function(startPosition, maxRecords, filter, ou
     // Post XML
     // TODO change the httpRequest sync to async.
     // TODO CallBack or a Promise ?
-    var httpRequest = Ows4js.Util.httpPost(this.url, "application/xml", myXML);
-    return  Ows4js.Csw.unmarshalDocument(httpRequest.responseXML);
+    return Ows4js.Util.httpPost(this.url, "application/xml", myXML).then(function(responseXML){
+        console.log(responseXML);
+        return Ows4js.Csw.unmarshalDocument(responseXML);
+    });
+
 };
 
 Ows4js.Csw.marshalDocument = function(object){
@@ -756,9 +761,9 @@ Ows4js.Csw.prototype.GetRecordById = function(id_list) {
     //console.log(byIdAction);
     var myXML = Ows4js.Csw.marshalDocument(byIdAction);
     //console.log(myXML);
-    var httpRequest = Ows4js.Util.httpPost(this.url, "application/xml", myXML);
-    //console.log(httpRequest.responseXML);
-    return Ows4js.Csw.unmarshalDocument(httpRequest.responseXML);
+    return Ows4js.Util.httpPost(this.url, "application/xml", myXML).then(function(responseXML){
+        return Ows4js.Csw.unmarshalDocument(responseXML);
+    });
 };
 
 Ows4js.Csw.prototype.getOperationByName = function(name) {
@@ -775,9 +780,9 @@ Ows4js.Csw.prototype.GetDomain = function(propertyName){
     var getdomainAction = new Ows4js.Csw.GetDomain(propertyName);
     var myXML = Ows4js.Csw.marshalDocument(getdomainAction);
     //console.log(myXML);
-    var httpRequest = Ows4js.Util.httpPost(this.url, "application/xml", myXML);
-    //console.log(httpRequest.responseXML);
-    return Ows4js.Csw.unmarshalDocument(httpRequest.responseXML);
+    return Ows4js.Util.httpPost(this.url, "application/xml", myXML).then(function(responseXML){
+        return Ows4js.Csw.unmarshalDocument(responseXML);
+    });
 };
 
 /**
