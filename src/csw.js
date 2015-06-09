@@ -19,7 +19,6 @@ Ows4js.Csw = function(url, config) {
 
     // init by doing a GetCapabilities and parsing metadata
     this.url = url;
-    console.log(this.url);
 };
 
 /**
@@ -46,8 +45,6 @@ Ows4js.Csw.prototype.GetCapabilities = function(){
     var getCapabilities = new Ows4js.Csw.GetCapabilities();
     // XML to Post.
     var myXML = Ows4js.Csw.marshalDocument(getCapabilities);
-    // TODO change the httpRequest sync to async.
-    // TODO CallBack or a Promise ?
     var me = this;
     return Ows4js.Util.httpPost(this.url, "application/xml", myXML).then(function(responseXML){
         var capabilities;
@@ -83,8 +80,6 @@ Ows4js.Csw.prototype.GetRecords = function(startPosition, maxRecords, filter, ou
     console.log(recordAction);
     console.log(myXML);
     // Post XML
-    // TODO change the httpRequest sync to async.
-    // TODO CallBack or a Promise ?
     return Ows4js.Util.httpPost(this.url, "application/xml", myXML).then(function(responseXML){
         console.log(responseXML);
         return Ows4js.Csw.unmarshalDocument(responseXML);
