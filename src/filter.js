@@ -348,3 +348,13 @@ Ows4js.Filter.prototype.getXML = function(){
     doc = marshaller.marshalDocument(this);
     return doc;
 };
+
+/**
+ * This function return a Basic Object Filter, without the functions
+ * to construct a filter. Only to use with Jsonix purposes.
+ * */
+
+Ows4js.Filter.prototype.getBasicFilterFromXML = function(xml){
+    var unmarshaller = Ows4js.Filter.JsonixContext.createUnmarshaller();
+    return unmarshaller.unmarshalDocument(xml);
+};

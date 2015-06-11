@@ -59,6 +59,8 @@
     "grunt-serve": "^0.1.6",
     "grunt-strip": "*",
     "jshint": "*",
-    "qunitjs": "*"
+    "qunitjs": "*",
+    "lodash" : "*",
+    "blanket": "*"
   }
 }

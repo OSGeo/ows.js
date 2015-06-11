@@ -7,16 +7,12 @@ Ows4js.Csw ={};
 
 Ows4js.Csw = function(url, config) {
     this.version = '2.0.2';
-
     /**
      * Jsonix Configuration
      * */
-
     if (config == null)
         throw 'Missing Configuration! It is a must to CSW to know the profile';
-
     Ows4js.Csw.jsonnixContext = new Jsonix.Context(config[0], config[1]);
-
     // init by doing a GetCapabilities and parsing metadata
     this.url = url;
 };

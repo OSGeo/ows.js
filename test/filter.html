@@ -11,48 +11,58 @@
     <script type="text/javascript" src="../node_modules/ogc-schemas/lib/GML_3_1_1.js"></script>
     <script type="text/javascript" src="../node_modules/ogc-schemas/lib/SMIL_2_0_Language.js"></script>
     <script type="text/javascript" src="../node_modules/ogc-schemas/lib/SMIL_2_0.js"></script>
-    <script type="text/javascript" src="../src/ows.js"></script>
-    <script type="text/javascript" src="../src/filter.js"></script>
+    <script type="text/javascript" src="../node_modules/lodash/index.js"></script>
+    <script type="text/javascript" src="../node_modules/blanket/dist/qunit/blanket.js"></script>
+    <script type="text/javascript" src="../src/ows.js" data-cover></script>
+    <script type="text/javascript" src="../src/filter.js" data-cover></script>
 </head>
 <body>
 <div id="qunit"></div>
 <div id="qunit-fixture"></div>
 <script type="text/javascript">
 
-    test('Creation Filter Test', function() {
+    function getXML(url){
+        return Ows4js.Util.httpGet(url).responseXML;
+    }
+
+    var auxFilter = new Ows4js.Filter();
+
+    function compareFilterToXML(object, xmlurl){
+        var filterFromXML = auxFilter.getBasicFilterFromXML(getXML(xmlurl));
+        // A little hack to "clean" the objects.
+        object = JSON.parse(JSON.stringify(object));
+        filterFromXML = JSON.parse(JSON.stringify(filterFromXML));
+        return _.isEqual(object, filterFromXML);
+    }
+
+    test('Creation Filter Test', function(assert) {
         var filter = new Ows4js.Filter().PropertyName('dc:title').isLike('%water%');
-        strictEqual(filter.value.comparisonOps.value.literal.content[0], "%water%");
-        strictEqual(filter.value.comparisonOps.value.propertyName.content, "dc:title");
+        strictEqual(filter['ogc:Filter'].comparisonOps['ogc:PropertyIsLike'].literal.content[0], "%water%");
+        strictEqual(filter['ogc:Filter'].comparisonOps['ogc:PropertyIsLike'].propertyName.content, "dc:title");
+        assert.ok(compareFilterToXML(filter, '../test/data/filter1.xml'))
     });//*/
 
-    test('Like Filter Test', function(assert){
+    test('isLike Filter Test', function(assert){
         var filter = new Ows4js.Filter().PropertyName('dc:title').isLike('%water%');
-        console.debug(filter.getXML());
-        assert.ok(true, 'XML generated');
+        assert.ok(compareFilterToXML(filter, '../test/data/filter1.xml'));
     });//*/
 
     test('Two isLike Filter', function(assert){
         var filter = new Ows4js.Filter().PropertyName('dc:title').isLike('%water%');
         filter = filter.and(new Ows4js.Filter().PropertyName('dc:subject').isLike('%polution%'));
-        console.debug(filter);
-        console.debug(filter.getXML());
-        assert.ok(true, 'XML generated');
+        assert.ok(compareFilterToXML(filter, '../test/data/filter2.xml'));
     });//*/
 
     test('isLike and BBOX Filter', function(assert){
         var filter = new Ows4js.Filter().PropertyName('dc:title').isLike('%water%');
         filter = filter.and(new Ows4js.Filter().BBOX(-80, 150, 80, -150, 'urn:x-ogc:def:crs:EPSG:6.11:4326'));
-        console.debug(filter);
-        console.debug(filter.getXML());
-        assert.ok(true, 'XML generated');
+        assert.ok(compareFilterToXML(filter, '../test/data/filter3.xml'));
     });//*/
 
     test('BBOX and isLike Filter', function(assert){
         var filter = new Ows4js.Filter().BBOX(-80, 150, 80, -150, 'urn:x-ogc:def:crs:EPSG:6.11:4326');
         filter = filter.and(new Ows4js.Filter().PropertyName('dc:title').isLike('%water%'));
-        console.debug(filter);
-        console.debug(filter.getXML());
-        assert.ok(true, 'XML generated');
+        assert.ok(compareFilterToXML(filter, '../test/data/filter4.xml'));
     });//*/
 
     test('isLike, BBOX and isLike Filter', function (assert){
@@ -60,9 +70,7 @@
         var filter2 = new Ows4js.Filter().BBOX(-80, 150, 80, -150, 'urn:x-ogc:def:crs:EPSG:6.11:4326');
         var filter3 = new Ows4js.Filter().PropertyName('dc:subject').isLike('%polution%');
         filter = filter.and(filter2).and(filter3);
-        console.debug(filter);
-        console.debug(filter.getXML());
-        assert.ok(true, 'XML generated');
+        assert.ok(compareFilterToXML(filter, '../test/data/filter5.xml'));
     });//*/
 
 </script>
