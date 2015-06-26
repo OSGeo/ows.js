@@ -129,6 +129,39 @@ Ows4js.Csw.prototype.GetDomain = function(propertyName){
 };
 
 /**
+ * Operation name: Insert
+ */
+
+Ows4js.Csw.prototype.insertRecords = function (records){
+    var transactionAction = new Ows4js.Csw.Insert(records);
+    var transaction = new Ows4js.Csw.Transaction(transactionAction);
+    console.log(transaction);
+    var myXML = Ows4js.Csw.marshalDocument(transaction);
+    console.log(myXML);
+};
+
+/**
+ * Operation name: Update
+ */
+
+Ows4js.Csw.prototype.updateRecords = function(records){
+    var transactionAction = new Ows4js.Csw.Update(records);
+    var transaction = new Ows4js.Csw.Transaction(transactionAction);
+    var myXML = Ows4js.Csw.marshalDocument(transaction);
+    console.log(myXML);
+};
+
+/**
+ * Operation name: Delete
+ */
+Ows4js.Csw.prototype.deleteRecords = function(filter){
+    var transactionAction = new Ows4js.Csw.Delete(filter);
+    var transaction = new Ows4js.Csw.Transaction(transactionAction);
+    var myXML = Ows4js.Csw.marshalDocument(transaction);
+    console.log(myXML);
+};
+
+/**
  * Templates for Requests
  * */
 
@@ -247,4 +280,48 @@ Ows4js.Csw.GetCapabilities = function () {
             "outputFormat":["application/xml"]
         }
     }
+};
+
+/**
+ * Transaction Request Template
+ */
+
+Ows4js.Csw.Transaction = function(action){
+  this['csw:Transaction'] = {
+      'TYPE_NAME': "CSW_2_0_2.TransactionType",
+      insertOrUpdateOrDelete: [action],
+      service: "CSW",
+      version: "2.0.2"
+  }
+};
+
+/**
+ * Insert template
+ */
+
+Ows4js.Csw.Insert = function(records){
+    this.TYPE_NAME =  "CSW_2_0_2.InsertType";
+    this.any = records;
+};
+
+/**
+ * Update Template
+ */
+
+Ows4js.Csw.Update = function(records) {
+    this.TYPE_NAME =  "CSW_2_0_2.UpdateType";
+    this.any = records;
+};
+
+/**
+ * Delete Template
+ */
+
+Ows4js.Csw.Delete = function(filter){
+    this.TYPE_NAME = "CSW_2_0_2.DeleteType";
+    this.constraint = {
+        TYPE_NAME: "CSW_2_0_2.QueryConstraintType",
+        filter : filter,
+        version: "1.1.0"
+    };
 };

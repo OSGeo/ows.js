@@ -32,6 +32,17 @@
     <script type="text/javascript" src="../node_modules/ogc-schemas/lib/GML_3_1_1.js"></script>
     <script type="text/javascript" src="../node_modules/ogc-schemas/lib/SMIL_2_0_Language.js"></script>
     <script type="text/javascript" src="../node_modules/ogc-schemas/lib/SMIL_2_0.js"></script>
+    <!-- ISO Profile -->
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/ISO19139_GCO_20060504.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/ISO19139_GMD_20060504.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/GML_3_2_1.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/GML_3_2_0.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/ISO19139_GTS_20060504.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/ISO19139_GSS_20060504.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/ISO19139_GSR_20060504.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/ISO19139_GMX_20060504.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/ISO19139_SRV_20060504.js"></script>
+    <!-- ISO Profile -->
     <script type="text/javascript" src="../src/ows.js"></script>
     <script type="text/javascript" src="../src/csw.js"></script>
     <script type="text/javascript" src="../src/filter.js"></script>
@@ -51,8 +62,16 @@
                 SMIL_2_0,
                 SMIL_2_0_Language,
                 GML_3_1_1,
+                Filter_1_1_0,
                 CSW_2_0_2,
-                Filter_1_1_0
+                GML_3_2_0,
+                ISO19139_GCO_20060504,
+                ISO19139_GMD_20060504,
+                ISO19139_GMX_20060504,
+                ISO19139_GSS_20060504,
+                ISO19139_GTS_20060504,
+                ISO19139_GSR_20060504,
+                ISO19139_SRV_20060504
             ],
             {
                 namespacePrefixes: {
@@ -149,7 +168,23 @@
 
         var Capabilities = Ows4js.Csw.unmarshalDocument(getXML('../examples/xml/capabilities.xml'));
 
-        console.log(Capabilities);
+        console.log(Capabilities);//*/
+
+
+        // This dont work propely because this issue
+        // https://github.com/highsource/ogc-schemas/issues/94
+        var csw_insert = Ows4js.Csw.unmarshalDocument(getXML('../examples/xml/recordISO19139.xml'));
+        var csw_update = Ows4js.Csw.unmarshalDocument(getXML('../examples/xml/update.xml'));
+        var csw_delete = Ows4js.Csw.unmarshalDocument(getXML('../examples/xml/delete.xml'));
+
+        console.log(csw_insert);
+        var document = Ows4js.Csw.marshalDocument(csw_insert);
+        console.log(document);
+        console.log(csw_update);
+        console.log(csw_delete);
+
+        var record = Ows4js.Csw.unmarshalDocument(getXML('../examples/xml/record1.xml'));
+        csw.insertRecords([record]);//*/
     </script>
 </section>
 <footer>
