@@ -35,7 +35,7 @@ grunt serve
 
 > no tags at the moment.
 
-**you also need to add to your index.html**
+**you also need to add to your index.html, this depends on the profile of the catalogue**
 
 ```html
 <script type="text/javascript" src="../bower_components/ogc-schemas/lib/OWS_1_0_0.js"></script>
@@ -58,6 +58,11 @@ grunt serve
  - GetRecordById
  - GetDomain
  - GetCapabilities (Refactored)
+ - Transactions:
+  - Create
+  - Update
+  - Delete
+  
 - OGC Filters
  - Operators:
   - Logical Operators:
