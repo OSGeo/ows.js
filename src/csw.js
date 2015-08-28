@@ -91,6 +91,15 @@ Ows4js.Csw.unmarshalDocument = function(xml){
     return Ows4js.Csw.jsonnixContext.createUnmarshaller().unmarshalDocument(xml);
 };
 
+// To simplify de API.
+Ows4js.Csw.xmlToObject = function(xml){
+    return Ows4js.Csw.unmarshalDocument(xml);
+};
+
+Ows4js.Csw.objectToXML = function(object){
+    return Ows4js.Csw.marshalDocument(object);
+};
+
 Ows4js.Csw.unmarshalString = function(string){
     return Ows4js.Csw.jsonnixContext.createUnmarshaller().unmarshalString(string);
 };
@@ -138,17 +147,24 @@ Ows4js.Csw.prototype.insertRecords = function (records){
     console.log(transaction);
     var myXML = Ows4js.Csw.marshalDocument(transaction);
     console.log(myXML);
+    return Ows4js.Util.httpPost(this.url, "application/xml", myXML).then(function(responseXML){
+        return Ows4js.Csw.unmarshalDocument(responseXML);
+    });
 };
 
 /**
  * Operation name: Update
  */
 
-Ows4js.Csw.prototype.updateRecords = function(records){
+Ows4js.Csw.prototype.updateRecord = function(records){
     var transactionAction = new Ows4js.Csw.Update(records);
     var transaction = new Ows4js.Csw.Transaction(transactionAction);
+    console.log(transaction);
     var myXML = Ows4js.Csw.marshalDocument(transaction);
     console.log(myXML);
+    return Ows4js.Util.httpPost(this.url, "application/xml", myXML).then(function(responseXML){
+        return Ows4js.Csw.unmarshalDocument(responseXML);
+    });
 };
 
 /**
@@ -159,6 +175,9 @@ Ows4js.Csw.prototype.deleteRecords = function(filter){
     var transaction = new Ows4js.Csw.Transaction(transactionAction);
     var myXML = Ows4js.Csw.marshalDocument(transaction);
     console.log(myXML);
+    return Ows4js.Util.httpPost(this.url, "application/xml", myXML).then(function(responseXML){
+        return Ows4js.Csw.unmarshalDocument(responseXML);
+    });
 };
 
 /**

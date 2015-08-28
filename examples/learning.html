@@ -77,7 +77,9 @@
                 namespacePrefixes: {
                     'http://www.opengis.net/cat/csw/2.0.2': 'csw',
                     "http://www.opengis.net/ogc": 'ogc',
-                    "http://www.opengis.net/gml": "gml"
+                    "http://www.opengis.net/gml": "gml",
+                    "http://purl.org/dc/elements/1.1/":"dc",
+                    "http://purl.org/dc/terms/":"dct"
                 },
                 mappingStyle : 'simplified'
             }
@@ -94,13 +96,13 @@
 
         // Raw XML to Javascript Object
         // Only BBOX
-        var getRecordDoc1 = Ows4js.Csw.unmarshalDocument(getXML('../examples/xml/getrecord1.xml'));
+        var getRecordDoc1 = Ows4js.Csw.xmlToObject(getXML('../examples/xml/getrecord1.xml'));
 
         // Only Property Name
-        var getRecordDoc2 =  Ows4js.Csw.unmarshalDocument(getXML('../examples/xml/getrecord2.xml'));
+        var getRecordDoc2 =  Ows4js.Csw.xmlToObject(getXML('../examples/xml/getrecord2.xml'));
 
         // Property name And BBOX
-        var getRecordDoc3 =  Ows4js.Csw.unmarshalDocument(getXML('../examples/xml/getrecord3.xml'));
+        var getRecordDoc3 =  Ows4js.Csw.xmlToObject(getXML('../examples/xml/getrecord3.xml'));
 
         console.info('1° GetRecords');
         console.log(getRecordDoc1);
@@ -110,31 +112,31 @@
         console.log(getRecordDoc3);
 
         console.log(' Filters ---------------------------------------------------------------------------------------');
-        var ogcfilter1 = Ows4js.Csw.unmarshalDocument(getXML('../examples/xml/filter1.xml'));
+        var ogcfilter1 = Ows4js.Csw.xmlToObject(getXML('../examples/xml/filter1.xml'));
         console.info('1° Filter');
         console.log(ogcfilter1);
 
-        var ogcfilter2 =  Ows4js.Csw.unmarshalDocument(getXML('../examples/xml/filter2.xml'));
+        var ogcfilter2 =  Ows4js.Csw.xmlToObject(getXML('../examples/xml/filter2.xml'));
         console.info('2° Filter');
         console.log(ogcfilter2);
 
-        var ogcfilter3 =  Ows4js.Csw.unmarshalDocument(getXML('../examples/xml/filter3.xml'));
+        var ogcfilter3 =  Ows4js.Csw.xmlToObject(getXML('../examples/xml/filter3.xml'));
         console.info('3° Filter');
         console.log(ogcfilter3);
 
-        var ogcfilter4 = Ows4js.Csw.unmarshalDocument(getXML('../examples/xml/filter4.xml'));
+        var ogcfilter4 = Ows4js.Csw.xmlToObject(getXML('../examples/xml/filter4.xml'));
         console.info('4° Filter');
         console.log(ogcfilter4);
 
-        var ogcfilter5 = Ows4js.Csw.unmarshalDocument(getXML('../examples/xml/filter5.xml'));
+        var ogcfilter5 = Ows4js.Csw.xmlToObject(getXML('../examples/xml/filter5.xml'));
         console.info('5° Filter');
         console.log(ogcfilter5);
 
-        var ogcfilter6 = Ows4js.Csw.unmarshalDocument(getXML('../examples/xml/filter6.xml'));
+        var ogcfilter6 = Ows4js.Csw.xmlToObject(getXML('../examples/xml/filter6.xml'));
         console.info('6° Filter');
         console.log(ogcfilter6);
 
-        var ogcfilter7 = Ows4js.Csw.unmarshalDocument(getXML('../examples/xml/filter7.xml'));
+        var ogcfilter7 = Ows4js.Csw.xmlToObject(getXML('../examples/xml/filter7.xml'));
         console.info('7° Filter');
         console.log(ogcfilter7);
 
@@ -145,9 +147,9 @@
 
         console.log(xml);
 
-        var getRecordbyIdDoc1 =  Ows4js.Csw.unmarshalDocument(getXML('../examples/xml/getrecordbyid1.xml'));
+        var getRecordbyIdDoc1 =  Ows4js.Csw.xmlToObject(getXML('../examples/xml/getrecordbyid1.xml'));
 
-        var getRecordbyIdDoc2 =  Ows4js.Csw.unmarshalDocument(getXML('../examples/xml/getrecordbyid1.xml'));
+        var getRecordbyIdDoc2 =  Ows4js.Csw.xmlToObject(getXML('../examples/xml/getrecordbyid1.xml'));
 
         console.info('1° GetRecordsById');
         console.log(getRecordbyIdDoc1);
@@ -158,33 +160,43 @@
 
         console.log(xml2);
 
-        var getDomainDoc =  Ows4js.Csw.unmarshalDocument(getXML('../examples/xml/getdomain.xml'));
+        var getDomainDoc =  Ows4js.Csw.xmlToObject(getXML('../examples/xml/getdomain.xml'));
 
         console.log(getDomainDoc);
 
-        var getCapabilities = Ows4js.Csw.unmarshalDocument(getXML('../examples/xml/getcapabilities.xml'));
+        var getCapabilities = Ows4js.Csw.xmlToObject(getXML('../examples/xml/getcapabilities.xml'));
 
         console.log(getCapabilities);
 
-        var Capabilities = Ows4js.Csw.unmarshalDocument(getXML('../examples/xml/capabilities.xml'));
+        var Capabilities = Ows4js.Csw.xmlToObject(getXML('../examples/xml/capabilities.xml'));
 
         console.log(Capabilities);//*/
 
-
-        // This dont work propely because this issue
-        // https://github.com/highsource/ogc-schemas/issues/94
-        var csw_insert = Ows4js.Csw.unmarshalDocument(getXML('../examples/xml/recordISO19139.xml'));
-        var csw_update = Ows4js.Csw.unmarshalDocument(getXML('../examples/xml/update.xml'));
-        var csw_delete = Ows4js.Csw.unmarshalDocument(getXML('../examples/xml/delete.xml'));
+        // Some XML examples!
+        var csw_insert = Ows4js.Csw.xmlToObject(getXML('../examples/xml/insert.xml'));
+        var csw_update = Ows4js.Csw.xmlToObject(getXML('../examples/xml/update.xml'));
+        var csw_delete = Ows4js.Csw.xmlToObject(getXML('../examples/xml/delete.xml'));
 
         console.log(csw_insert);
-        var document = Ows4js.Csw.marshalDocument(csw_insert);
+        var document = Ows4js.Csw.objectToXML(csw_insert);
+
         console.log(document);
         console.log(csw_update);
         console.log(csw_delete);
 
-        var record = Ows4js.Csw.unmarshalDocument(getXML('../examples/xml/record1.xml'));
-        csw.insertRecords([record]);//*/
+        // Lets try transactions!
+        var record = Ows4js.Csw.xmlToObject(getXML('../examples/xml/record1.xml'));
+        console.log(record);
+        csw.insertRecords([record, record]).then(function(response){
+            console.log(response);
+        });//*/
+        csw.updateRecord(record).then(function(response){
+            console.log(response);
+        });//*/
+        csw.deleteRecords(ogcfilter1).then(function(response){
+            console.log(response);
+        });//*/
+
     </script>
 </section>
 <footer>
