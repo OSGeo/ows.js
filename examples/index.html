@@ -44,8 +44,8 @@
     <script type="text/javascript" src="../node_modules/ogc-schemas/lib/ISO19139_SRV_20060504.js"></script>
     <!-- ISO Profile -->
     <script type="text/javascript" src="../src/ows.js"></script>
-    <script type="text/javascript" src="../src/filter.js"></script>
     <script type="text/javascript" src="../src/csw.js"></script>
+    <script type="text/javascript" src="../src/filter.js"></script>
 
 
 
@@ -66,17 +66,35 @@
                 SMIL_2_0_Language,
                 GML_3_1_1,
                 Filter_1_1_0,
-                CSW_2_0_2
+                CSW_2_0_2,
+                GML_3_2_0,
+                ISO19139_GCO_20060504,
+                ISO19139_GMD_20060504,
+                ISO19139_GMX_20060504,
+                ISO19139_GSS_20060504,
+                ISO19139_GTS_20060504,
+                ISO19139_GSR_20060504,
+                ISO19139_SRV_20060504
             ],
             {
                 namespacePrefixes: {
                     'http://www.opengis.net/cat/csw/2.0.2': 'csw',
                     "http://www.opengis.net/ogc": 'ogc',
-                    "http://www.opengis.net/gml": "gml"
+                    "http://www.opengis.net/gml": "gml",
+                    "http://purl.org/dc/elements/1.1/":"dc",
+                    "http://purl.org/dc/terms/":"dct",
+                    "http://www.isotc211.org/2005/gmd" : "gmd",
+                    "http://www.isotc211.org/2005/gco" : "gco"
                 },
                 mappingStyle : 'simplified'
             }
         ];
+
+        // Help Function
+
+        function getXML(url){
+            return Ows4js.Util.httpGet(url).responseXML;
+        }
 
         // Create csw client
         // data.noaa.gov
@@ -148,6 +166,21 @@
         ]).then(function(byid){
             console.log(byid);
         });
+
+        // Lets try transactions!
+        var record = Ows4js.Csw.xmlToObject(getXML('../examples/xml/recordISO19139.xml'));
+
+        console.log(record);
+
+        csw.insertRecords([record]).then(function(response){
+            console.log(response);
+        });//*/
+        csw.updateRecord(record).then(function(response){
+            console.log(response);
+        });//*/
+        csw.deleteRecords(filter).then(function(response){
+            console.log(response);
+        });//*/
 
     </script>
 </section>

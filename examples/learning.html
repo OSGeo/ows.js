@@ -75,11 +75,13 @@
             ],
             {
                 namespacePrefixes: {
-                    'http://www.opengis.net/cat/csw/2.0.2': 'csw',
+                    "http://www.opengis.net/cat/csw/2.0.2": "csw",
                     "http://www.opengis.net/ogc": 'ogc',
                     "http://www.opengis.net/gml": "gml",
                     "http://purl.org/dc/elements/1.1/":"dc",
-                    "http://purl.org/dc/terms/":"dct"
+                    "http://purl.org/dc/terms/":"dct",
+                    "http://www.isotc211.org/2005/gmd" : "gmd",
+                    "http://www.isotc211.org/2005/gco" : "gco"
                 },
                 mappingStyle : 'simplified'
             }
@@ -183,19 +185,6 @@
         console.log(document);
         console.log(csw_update);
         console.log(csw_delete);
-
-        // Lets try transactions!
-        var record = Ows4js.Csw.xmlToObject(getXML('../examples/xml/record1.xml'));
-        console.log(record);
-        csw.insertRecords([record, record]).then(function(response){
-            console.log(response);
-        });//*/
-        csw.updateRecord(record).then(function(response){
-            console.log(response);
-        });//*/
-        csw.deleteRecords(ogcfilter1).then(function(response){
-            console.log(response);
-        });//*/
 
     </script>
 </section>
