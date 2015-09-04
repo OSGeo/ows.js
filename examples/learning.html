@@ -81,7 +81,8 @@
                     "http://purl.org/dc/elements/1.1/":"dc",
                     "http://purl.org/dc/terms/":"dct",
                     "http://www.isotc211.org/2005/gmd" : "gmd",
-                    "http://www.isotc211.org/2005/gco" : "gco"
+                    "http://www.isotc211.org/2005/gco" : "gco",
+                    "http://www.isotc211.org/2005/gmi" : "gmi"
                 },
                 mappingStyle : 'simplified'
             }
@@ -185,6 +186,14 @@
         console.log(document);
         console.log(csw_update);
         console.log(csw_delete);
+
+        // Some CSW profile
+        var record19139 = Ows4js.Csw.xmlToObject(getXML('../examples/xml/recordISO19139.xml'));
+        console.log(record19139);
+
+        // Not working ISO 19139-2
+        var record19139TWO = Ows4js.Csw.xmlToObject(getXML('../examples/xml/recordISO19139-2.xml'));
+        console.log(record19139TWO);
 
     </script>
 </section>
