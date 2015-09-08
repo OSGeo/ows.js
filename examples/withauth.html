@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>csw4js</title>
+    <style type="text/css">
+        body {
+            background-color: #ffffff;
+            font-family: arial, verdana, sans-serif;
+            text-align: left;
+            float: left;
+        }
+        .flat {
+            border: 0;
+        }
+        header {
+            display: inline-block;
+        }
+        .header-img {
+            float: left;
+            margin: 0 15px 15px 0;
+            border: 0;
+        }
+    </style>
+    <script type="text/javascript" src="../node_modules/jsonix/jsonix.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/OWS_1_0_0.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/DC_1_1.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/DCT.js"></script>
+    <script type="text/javascript" src="../node_modules/w3c-schemas/lib/XLink_1_0.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/CSW_2_0_2.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/Filter_1_1_0.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/GML_3_1_1.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/SMIL_2_0_Language.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/SMIL_2_0.js"></script>
+    <!-- ISO Profile -->
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/ISO19139_GCO_20060504.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/ISO19139_GMD_20060504.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/GML_3_2_1.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/GML_3_2_0.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/ISO19139_GTS_20060504.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/ISO19139_GSS_20060504.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/ISO19139_GSR_20060504.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/ISO19139_GMX_20060504.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/ISO19139_SRV_20060504.js"></script>
+    <!-- ISO Profile -->
+    <script type="text/javascript" src="../src/ows.js"></script>
+    <script type="text/javascript" src="../src/csw.js"></script>
+    <script type="text/javascript" src="../src/filter.js"></script>
+
+
+
+</head>
+<body>
+<header>
+    <h1>csw4js</h1>
+</header>
+<section>
+    <script type="text/javascript">
+        var cswConfig = [
+            [
+                OWS_1_0_0,
+                DC_1_1,
+                DCT,
+                XLink_1_0,
+                SMIL_2_0,
+                SMIL_2_0_Language,
+                GML_3_1_1,
+                Filter_1_1_0,
+                CSW_2_0_2,
+                GML_3_2_0,
+                ISO19139_GCO_20060504,
+                ISO19139_GMD_20060504,
+                ISO19139_GMX_20060504,
+                ISO19139_GSS_20060504,
+                ISO19139_GTS_20060504,
+                ISO19139_GSR_20060504,
+                ISO19139_SRV_20060504
+            ],
+            {
+                namespacePrefixes: {
+                    'http://www.opengis.net/cat/csw/2.0.2': 'csw',
+                    "http://www.opengis.net/ogc": 'ogc',
+                    "http://www.opengis.net/gml": "gml",
+                    "http://purl.org/dc/elements/1.1/":"dc",
+                    "http://purl.org/dc/terms/":"dct",
+                    "http://www.isotc211.org/2005/gmd" : "gmd",
+                    "http://www.isotc211.org/2005/gco" : "gco"
+                },
+                mappingStyle : 'simplified'
+            },
+            {
+                user: 'user',
+                pass: 'pass'
+            }
+        ];
+
+        // Help Function
+
+        function getXML(url){
+            return Ows4js.Util.httpGet(url).responseXML;
+        }
+
+        // Create csw client
+        // data.noaa.gov
+
+        var csw = new Ows4js.Csw('../noa/csw', cswConfig);
+
+        csw.GetCapabilities().then(function(me){
+            // MaxRecords
+            console.log('Get Constraint MaxRecordDefault property');
+            console.debug(me);
+            console.debug(me.operationsMetadata.constraint.filter(function(element){ return element.name == 'MaxRecordDefault' })[0].value[0]);
+        });
+
+    </script>
+</section>
+<footer>
+    <a href="http://validator.w3.org/check?verbose=1&amp;uri=referer" title="Valid HTML 5!"><img class="flat" src="http://www.w3.org/html/logo/downloads/HTML5_Badge_32.png" alt="Valid HTML 5!" height="32" width="32"/></a>
+    <a href="http://jigsaw.w3.org/css-validator/check/referer" title="Valid CSS!"><img class="flat" src="http://jigsaw.w3.org/css-validator/images/vcss-blue" alt="Valid CSS!" height="31" width="88"/></a>
+</footer>
+</body>
+</html>

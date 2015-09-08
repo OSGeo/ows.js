@@ -28,7 +28,7 @@ Ows4js.Util.httpGet = function(url) {
     }
 };
 
-Ows4js.Util.httpPost = function(url, lang, request, async) {
+Ows4js.Util.httpPost = function(url, lang, request, credentials) {
     return new Promise(function(fulfill, reject){
         var httpRequest = new XMLHttpRequest();
         httpRequest.onreadystatechange=function() {
@@ -39,6 +39,9 @@ Ows4js.Util.httpPost = function(url, lang, request, async) {
         };
         httpRequest.open('POST', url, true);
         httpRequest.setRequestHeader('Accept-Language',lang);
+        if (credentials != undefined && credentials.user != undefined && credentials.pass != undefined){
+            httpRequest.setRequestHeader("Authorization", "Basic " + btoa(credentials.user + ":" + credentials.pass));
+        }
         httpRequest.send(request);
     });
 };
