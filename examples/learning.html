@@ -33,19 +33,31 @@
     <script type="text/javascript" src="../node_modules/ogc-schemas/lib/SMIL_2_0_Language.js"></script>
     <script type="text/javascript" src="../node_modules/ogc-schemas/lib/SMIL_2_0.js"></script>
     <!-- ISO Profile -->
-    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/ISO19139_GCO_20060504.js"></script>
-    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/ISO19139_GMD_20060504.js"></script>
     <script type="text/javascript" src="../node_modules/ogc-schemas/lib/GML_3_2_1.js"></script>
     <script type="text/javascript" src="../node_modules/ogc-schemas/lib/GML_3_2_0.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/ISO19139_GCO_20060504.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/ISO19139_GMD_20060504.js"></script>
     <script type="text/javascript" src="../node_modules/ogc-schemas/lib/ISO19139_GTS_20060504.js"></script>
     <script type="text/javascript" src="../node_modules/ogc-schemas/lib/ISO19139_GSS_20060504.js"></script>
     <script type="text/javascript" src="../node_modules/ogc-schemas/lib/ISO19139_GSR_20060504.js"></script>
     <script type="text/javascript" src="../node_modules/ogc-schemas/lib/ISO19139_GMX_20060504.js"></script>
     <script type="text/javascript" src="../node_modules/ogc-schemas/lib/ISO19139_SRV_20060504.js"></script>
+
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/ISO19139_GCO_20070417.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/ISO19139_GMD_20070417.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/ISO19139_GTS_20070417.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/ISO19139_GSS_20070417.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/ISO19139_GSR_20070417.js"></script>
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/ISO19139_GMX_20070417.js"></script>
+
+    <script type="text/javascript" src="../node_modules/ogc-schemas/lib/ISO19139_2_GMI_1_0.js"></script>
+
     <!-- ISO Profile -->
     <script type="text/javascript" src="../src/ows.js"></script>
     <script type="text/javascript" src="../src/csw.js"></script>
     <script type="text/javascript" src="../src/filter.js"></script>
+
+
 </head>
 <body>
 <header>
@@ -65,13 +77,14 @@
                 Filter_1_1_0,
                 CSW_2_0_2,
                 GML_3_2_0,
-                ISO19139_GCO_20060504,
-                ISO19139_GMD_20060504,
-                ISO19139_GMX_20060504,
-                ISO19139_GSS_20060504,
-                ISO19139_GTS_20060504,
-                ISO19139_GSR_20060504,
-                ISO19139_SRV_20060504
+                GML_3_2_1,
+                ISO19139_GCO_20070417,
+                ISO19139_GMD_20070417,
+                ISO19139_GMX_20070417,
+                ISO19139_GSS_20070417,
+                ISO19139_GTS_20070417,
+                ISO19139_GSR_20070417,
+                ISO19139_2_GMI_1_0
             ],
             {
                 namespacePrefixes: {
@@ -191,7 +204,7 @@
         var record19139 = Ows4js.Csw.xmlToObject(getXML('../examples/xml/recordISO19139.xml'));
         console.log(record19139);
 
-        // Not working ISO 19139-2
+        // Working ISO 19139-2
         var record19139TWO = Ows4js.Csw.xmlToObject(getXML('../examples/xml/recordISO19139-2.xml'));
         console.log(record19139TWO);
 

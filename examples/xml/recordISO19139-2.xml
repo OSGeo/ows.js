@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<gmi:MI_Metadata xmlns:gco="http://www.isotc211.org/2005/gco"
-				 xmlns:geonet="http://www.fao.org/geonetwork"
+<gmi:MI_Metadata xmlns:gmi="http://www.isotc211.org/2005/gmi"
 				 xmlns:gmd="http://www.isotc211.org/2005/gmd"
-				 xmlns:gmi="http://www.isotc211.org/2005/gmi"
-				 xmlns:gml="http://www.opengis.net/gml"
-				 xmlns:gts="http://www.isotc211.org/2005/gts"
-				 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-				 xsi:schemaLocation="http://www.isotc211.org/2005/gmi http://schemas.opengis.net/iso/19139/20070417/gmi/gmi.xsd">
+				 xmlns:gco="http://www.isotc211.org/2005/gco"
+				 xmlns:gml="http://www.opengis.net/gml/3.2"
+				 >
 	<gmd:fileIdentifier>
-		<gco:CharacterString>d5827532-9b45-4344-9e1e-a621ee1194ab</gco:CharacterString>
+		<gco:CharacterString>2e43d969-af7d-4382-b668-2b3c2d1e053a</gco:CharacterString>
 	</gmd:fileIdentifier>
 	<gmd:metadataStandardName>
 		<gco:CharacterString>PIDERA - ISO 19115:2003/19139</gco:CharacterString>
@@ -24,10 +21,11 @@
 			<gmd:axisDimensionProperties>
 				<gmd:MD_Dimension>
 					<gmd:dimensionName>
-						<gmd:MD_DimensionNameTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_DimensionNameTypeCode" codeListValue="row"/>
+						<gmd:MD_DimensionNameTypeCode codeListValue="row"
+													  codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_DimensionNameTypeCode"/>
 					</gmd:dimensionName>
 					<gmd:dimensionSize>
-						<gco:Integer>7831</gco:Integer>
+						<gco:Integer>7781</gco:Integer>
 					</gmd:dimensionSize>
 					<gmd:resolution>
 						<gco:Measure uom="Meter">30.000000</gco:Measure>
@@ -37,10 +35,11 @@
 			<gmd:axisDimensionProperties>
 				<gmd:MD_Dimension>
 					<gmd:dimensionName>
-						<gmd:MD_DimensionNameTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_DimensionNameTypeCode" codeListValue="column"/>
+						<gmd:MD_DimensionNameTypeCode codeListValue="column"
+													  codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_DimensionNameTypeCode"/>
 					</gmd:dimensionName>
 					<gmd:dimensionSize>
-						<gco:Integer>7721</gco:Integer>
+						<gco:Integer>7631</gco:Integer>
 					</gmd:dimensionSize>
 					<gmd:resolution>
 						<gco:Measure uom="Meter">30.000000</gco:Measure>
@@ -48,7 +47,8 @@
 				</gmd:MD_Dimension>
 			</gmd:axisDimensionProperties>
 			<gmd:cellGeometry>
-				<gmd:MD_CellGeometryCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_CellGeometryCode" codeListValue="area"/>
+				<gmd:MD_CellGeometryCode codeListValue="area"
+										 codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_CellGeometryCode"/>
 			</gmd:cellGeometry>
 			<gmd:transformationParameterAvailability>
 				<gco:Boolean>false</gco:Boolean>
@@ -61,20 +61,22 @@
 			<gmd:axisDimensionProperties>
 				<gmd:MD_Dimension>
 					<gmd:dimensionName>
-						<gmd:MD_DimensionNameTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_DimensionNameTypeCode" codeListValue="track"/>
+						<gmd:MD_DimensionNameTypeCode codeListValue="track"
+													  codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_DimensionNameTypeCode"/>
 					</gmd:dimensionName>
 					<gmd:dimensionSize>
-						<gco:Integer>225</gco:Integer>
+						<gco:Integer>227</gco:Integer>
 					</gmd:dimensionSize>
 				</gmd:MD_Dimension>
 			</gmd:axisDimensionProperties>
 			<gmd:axisDimensionProperties>
 				<gmd:MD_Dimension>
 					<gmd:dimensionName>
-						<gmd:MD_DimensionNameTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_DimensionNameTypeCode" codeListValue="crossTrack"/>
+						<gmd:MD_DimensionNameTypeCode codeListValue="crossTrack"
+													  codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_DimensionNameTypeCode"/>
 					</gmd:dimensionName>
 					<gmd:dimensionSize>
-						<gco:Integer>74</gco:Integer>
+						<gco:Integer>68</gco:Integer>
 					</gmd:dimensionSize>
 				</gmd:MD_Dimension>
 			</gmd:axisDimensionProperties>
@@ -85,22 +87,22 @@
 		<gmd:MD_Georectified>
 			<gmi:cornerPoints>
 				<gml:Point gml:id="ID0UL">
-					<gml:pos>-19.18067 -56.22293</gml:pos>
+					<gml:pos>-10.51618 -57.30068</gml:pos>
 				</gml:Point>
 			</gmi:cornerPoints>
 			<gmi:cornerPoints>
 				<gml:Point gml:id="ID0UR">
-					<gml:pos>-19.15814 -54.02151</gml:pos>
+					<gml:pos>-10.51127 -55.20901</gml:pos>
 				</gml:Point>
 			</gmi:cornerPoints>
 			<gmi:cornerPoints>
 				<gml:Point gml:id="ID0LL">
-					<gml:pos>-21.30313 -56.21230</gml:pos>
+					<gml:pos>-12.62694 -57.30294</gml:pos>
 				</gml:Point>
 			</gmi:cornerPoints>
 			<gmi:cornerPoints>
 				<gml:Point gml:id="ID0LR">
-					<gml:pos>-21.27789 -53.98085</gml:pos>
+					<gml:pos>-12.62101 -55.19554</gml:pos>
 				</gml:Point>
 			</gmi:cornerPoints>
 		</gmd:MD_Georectified>
@@ -127,8 +129,7 @@
 			<gmd:graphicOverview xmlns:srv="http://www.isotc211.org/2005/srv">
 				<gmd:MD_BrowseGraphic>
 					<gmd:fileName>
-						<gco:CharacterString>https://metadatos.conae.gov.ar/datastore/l8/LO82250742015164COA00_t.jpg
-</gco:CharacterString>
+						<gco:CharacterString>https://metadatos.conae.gov.ar/datastore/l8/LO82270682015162COA00_t.jpg</gco:CharacterString>
 					</gmd:fileName>
 					<gmd:fileDescription>
 						<gco:CharacterString>thumbnail</gco:CharacterString>
@@ -141,8 +142,7 @@
 			<gmd:graphicOverview xmlns:srv="http://www.isotc211.org/2005/srv">
 				<gmd:MD_BrowseGraphic>
 					<gmd:fileName>
-						<gco:CharacterString>https://metadatos.conae.gov.ar/datastore/l8/LO82250742015164COA00.jpg
-</gco:CharacterString>
+						<gco:CharacterString>https://metadatos.conae.gov.ar/datastore/l8/LO82270682015162COA00.jpg</gco:CharacterString>
 					</gmd:fileName>
 					<gmd:fileDescription>
 						<gco:CharacterString>large_thumbnail</gco:CharacterString>
@@ -155,15 +155,16 @@
 			<gmd:citation>
 				<gmd:CI_Citation>
 					<gmd:title>
-						<gco:CharacterString>LO82250742015164COA00</gco:CharacterString>
+						<gco:CharacterString>LO82270682015162COA00</gco:CharacterString>
 					</gmd:title>
 					<gmd:date>
 						<gmd:CI_Date>
 							<gmd:date>
-								<gco:DateTime>2015-06-13T15:04:42</gco:DateTime>
+								<gco:DateTime>2015-06-11T17:35:01</gco:DateTime>
 							</gmd:date>
 							<gmd:dateType>
-								<gmd:CI_DateTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_DateTypeCode" codeListValue="creation"/>
+								<gmd:CI_DateTypeCode codeListValue="creation"
+													 codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_DateTypeCode"/>
 							</gmd:dateType>
 						</gmd:CI_Date>
 					</gmd:date>
@@ -173,11 +174,11 @@
 				</gmd:CI_Citation>
 			</gmd:citation>
 			<gmd:abstract>
-				<gco:CharacterString>Imagen Satelital Multiexprectral de la serie Landsat (OLI)
-</gco:CharacterString>
+				<gco:CharacterString>Imagen Satelital Multiexprectral de la serie Landsat (OLI)</gco:CharacterString>
 			</gmd:abstract>
 			<gmd:status>
-				<gmd:MD_ProgressCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_ProgressCode" codeListValue="completed"/>
+				<gmd:MD_ProgressCode codeListValue="completed"
+									 codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_ProgressCode"/>
 			</gmd:status>
 			<gmd:pointOfContact>
 				<gmd:CI_ResponsibleParty>
@@ -227,7 +228,8 @@
 						</gmd:CI_Contact>
 					</gmd:contactInfo>
 					<gmd:role>
-						<gmd:CI_RoleCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_RoleCode" codeListValue="originator"/>
+						<gmd:CI_RoleCode codeListValue="originator"
+										 codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_RoleCode"/>
 					</gmd:role>
 				</gmd:CI_ResponsibleParty>
 			</gmd:pointOfContact>
@@ -279,14 +281,16 @@
 						</gmd:CI_Contact>
 					</gmd:contactInfo>
 					<gmd:role>
-						<gmd:CI_RoleCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_RoleCode" codeListValue="publisher"/>
+						<gmd:CI_RoleCode codeListValue="publisher"
+										 codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_RoleCode"/>
 					</gmd:role>
 				</gmd:CI_ResponsibleParty>
 			</gmd:pointOfContact>
 			<gmd:resourceMaintenance>
 				<gmd:MD_MaintenanceInformation>
 					<gmd:maintenanceAndUpdateFrequency>
-						<gmd:MD_MaintenanceFrequencyCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_MaintenanceFrequencyCode" codeListValue="asNeeded"/>
+						<gmd:MD_MaintenanceFrequencyCode codeListValue="asNeeded"
+														 codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_MaintenanceFrequencyCode"/>
 					</gmd:maintenanceAndUpdateFrequency>
 				</gmd:MD_MaintenanceInformation>
 			</gmd:resourceMaintenance>
@@ -299,17 +303,20 @@
 						<gco:CharacterString>Landsat, OLI, Satelite, Sensores Remotos</gco:CharacterString>
 					</gmd:keyword>
 					<gmd:type>
-						<gmd:MD_KeywordTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_KeywordTypeCode" codeListValue="theme"/>
+						<gmd:MD_KeywordTypeCode codeListValue="theme"
+												codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_KeywordTypeCode"/>
 					</gmd:type>
 				</gmd:MD_Keywords>
 			</gmd:descriptiveKeywords>
 			<gmd:resourceConstraints>
 				<gmd:MD_LegalConstraints>
 					<gmd:accessConstraints>
-						<gmd:MD_RestrictionCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_RestrictionCode" codeListValue="copyright"/>
+						<gmd:MD_RestrictionCode codeListValue="copyright"
+												codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_RestrictionCode"/>
 					</gmd:accessConstraints>
 					<gmd:useConstraints>
-						<gmd:MD_RestrictionCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_RestrictionCode" codeListValue="copyright"/>
+						<gmd:MD_RestrictionCode codeListValue="copyright"
+												codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_RestrictionCode"/>
 					</gmd:useConstraints>
 					<gmd:otherConstraints>
 						<gco:CharacterString>Libre Publicación</gco:CharacterString>
@@ -317,7 +324,8 @@
 				</gmd:MD_LegalConstraints>
 			</gmd:resourceConstraints>
 			<gmd:spatialRepresentationType>
-				<gmd:MD_SpatialRepresentationTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_SpatialRepresentationTypeCode" codeListValue="grid"/>
+				<gmd:MD_SpatialRepresentationTypeCode codeListValue="grid"
+													  codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_SpatialRepresentationTypeCode"/>
 			</gmd:spatialRepresentationType>
 			<gmd:spatialResolution>
 				<gmd:MD_Resolution>
@@ -334,7 +342,8 @@
 				<gmd:LanguageCode codeList="http://www.loc.gov/standards/iso639-2/" codeListValue="spa"/>
 			</gmd:language>
 			<gmd:characterSet>
-				<gmd:MD_CharacterSetCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_CharacterSetCode" codeListValue="utf8"/>
+				<gmd:MD_CharacterSetCode codeListValue="utf8"
+										 codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_CharacterSetCode"/>
 			</gmd:characterSet>
 			<gmd:extent>
 				<gmd:EX_Extent>
@@ -342,7 +351,7 @@
 						<gmd:EX_TemporalExtent>
 							<gmd:extent>
 								<gml:TimeInstant gml:id="ID0EAG">
-									<gml:timePosition>2015-06-13T13:39:54.9774479</gml:timePosition>
+									<gml:timePosition>2015-06-11T13:49:51.9245853</gml:timePosition>
 								</gml:TimeInstant>
 							</gmd:extent>
 						</gmd:EX_TemporalExtent>
@@ -354,37 +363,37 @@
 					<gmd:geographicElement>
 						<gmd:EX_GeographicBoundingBox>
 							<gmd:westBoundLongitude>
-								<gco:Decimal>-54.02151</gco:Decimal>
+								<gco:Decimal>-55.20901</gco:Decimal>
 							</gmd:westBoundLongitude>
 							<gmd:eastBoundLongitude>
-								<gco:Decimal>-56.22293</gco:Decimal>
+								<gco:Decimal>-57.30068</gco:Decimal>
 							</gmd:eastBoundLongitude>
 							<gmd:southBoundLatitude>
-								<gco:Decimal>-21.27789</gco:Decimal>
+								<gco:Decimal>-12.62101</gco:Decimal>
 							</gmd:southBoundLatitude>
 							<gmd:northBoundLatitude>
-								<gco:Decimal>-19.18067</gco:Decimal>
+								<gco:Decimal>-10.51618</gco:Decimal>
 							</gmd:northBoundLatitude>
 						</gmd:EX_GeographicBoundingBox>
 					</gmd:geographicElement>
 				</gmd:EX_Extent>
 			</gmd:extent>
 			<gmd:supplementalInformation>
-				<gco:CharacterString>Imagen Satelital Multiexprectral de la serie Landsat (OLI)
-</gco:CharacterString>
+				<gco:CharacterString>Imagen Satelital Multiexprectral de la serie Landsat (OLI)</gco:CharacterString>
 			</gmd:supplementalInformation>
 		</gmd:MD_DataIdentification>
 	</gmd:identificationInfo>
 	<gmd:contentInfo>
 		<gmd:MD_ImageDescription>
 			<gmd:imagingCondition>
-				<gmd:MD_ImagingConditionCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_ImagingConditionCode" codeListValue="normal"/>
+				<gmd:MD_ImagingConditionCode codeListValue="normal"
+											 codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_ImagingConditionCode"/>
 			</gmd:imagingCondition>
 			<gmd:imageQualityCode>
 				<gco:CharacterString>buena</gco:CharacterString>
 			</gmd:imageQualityCode>
 			<gmd:cloudCoverPercentage>
-				<gco:Real>1.47</gco:Real>
+				<gco:Real>44.43</gco:Real>
 			</gmd:cloudCoverPercentage>
 			<gmd:processingLevelCode>
 				<gco:CharacterString>L2</gco:CharacterString>
@@ -411,8 +420,7 @@
 					<gmd:onLine>
 						<gmd:CI_OnlineResource>
 							<gmd:linkage>
-								<gmd:URL>http://catalogos.conae.gov.ar/landsat8/find.aspx?idnasa=LO82250742015164COA00
-</gmd:URL>
+								<gmd:URL>http://catalogos.conae.gov.ar/landsat8/find.aspx?idnasa=LO82270682015162COA00</gmd:URL>
 							</gmd:linkage>
 							<gmd:protocol>
 								<gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
@@ -428,8 +436,7 @@
 					<gmd:onLine>
 						<gmd:CI_OnlineResource>
 							<gmd:linkage>
-								<gmd:URL>https://metadatos.conae.gov.ar/datastore/l8/metadatasrc/LO82250742015164COA00_MTL.txt
-</gmd:URL>
+								<gmd:URL>https://metadatos.conae.gov.ar/datastore/l8/metadatasrc/LO82270682015162COA00_MTL.txt</gmd:URL>
 							</gmd:linkage>
 							<gmd:protocol>
 								<gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
@@ -468,7 +475,8 @@
 														<gco:DateTime>2014-01-01</gco:DateTime>
 													</gmd:date>
 													<gmd:dateType>
-														<gmd:CI_DateTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_DateTypeCode" codeListValue="creation"/>
+														<gmd:CI_DateTypeCode codeListValue="creation"
+																			 codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_DateTypeCode"/>
 													</gmd:dateType>
 												</gmd:CI_Date>
 											</gmd:date>
@@ -496,7 +504,8 @@
 																<gco:CharacterString/>
 															</gmd:organisationName>
 															<gmd:role>
-																<gmd:CI_RoleCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_RoleCode" codeListValue="originator"/>
+																<gmd:CI_RoleCode codeListValue="originator"
+																				 codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_RoleCode"/>
 															</gmd:role>
 														</gmd:CI_ResponsibleParty>
 													</gmd:citedResponsibleParty>
@@ -519,7 +528,8 @@
 		<gmd:LanguageCode codeList="http://www.loc.gov/standards/iso639-2/" codeListValue="spa"/>
 	</gmd:language>
 	<gmd:characterSet>
-		<gmd:MD_CharacterSetCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_CharacterSetCode" codeListValue="utf8"/>
+		<gmd:MD_CharacterSetCode codeListValue="utf8"
+								 codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_CharacterSetCode"/>
 	</gmd:characterSet>
 	<gmi:acquisitionInformation>
 		<gmi:MI_AcquisitionInformation>
@@ -536,14 +546,16 @@
 										<gco:DateTime>2013-02-11</gco:DateTime>
 									</gmd:date>
 									<gmd:dateType>
-										<gmd:CI_DateTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_DateTypeCode" codeListValue="creation"/>
+										<gmd:CI_DateTypeCode codeListValue="creation"
+															 codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_DateTypeCode"/>
 									</gmd:dateType>
 								</gmd:CI_Date>
 							</gmd:date>
 						</gmd:CI_Citation>
 					</gmd:citation>
 					<gmd:status>
-						<gmd:MD_ProgressCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_ProgressCode" codeListValue="onGoing"/>
+						<gmd:MD_ProgressCode codeListValue="onGoing"
+											 codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_ProgressCode"/>
 					</gmd:status>
 				</gmi:MI_Operation>
 			</gmi:operation>
@@ -558,7 +570,8 @@
 								<gco:CharacterString>Nasa</gco:CharacterString>
 							</gmd:organisationName>
 							<gmd:role>
-								<gmd:CI_RoleCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_RoleCode" codeListValue="resourceProvider"/>
+								<gmd:CI_RoleCode codeListValue="resourceProvider"
+												 codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_RoleCode"/>
 							</gmd:role>
 						</gmd:CI_ResponsibleParty>
 					</gmi:sponsor>
