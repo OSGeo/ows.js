@@ -11,6 +11,12 @@ module.exports = function(grunt) {
                 dest: 'dist/ows.min.js'
             }
         },
+        concat : {
+            build: {
+                src: ['src/ows.js', 'src/filter.js', 'src/csw.js'],
+                dest: 'dist/ows.debug.js'
+            }
+        },
         jshint: {
             options: {
                 jshintrc: '.jshintrc'
@@ -54,6 +60,11 @@ module.exports = function(grunt) {
                     },
                     {
                         changeOrigin: true,
+                        context: '/excat',
+                        host: 'geomatics.nlr.nl'
+                    },
+                    {
+                        changeOrigin: true,
                         context: '/noa',
                         https: true,
                         port: 443,
@@ -76,6 +87,8 @@ module.exports = function(grunt) {
 
     grunt.loadNpmTasks('grunt-contrib-uglify');
 
+    grunt.loadNpmTasks('grunt-contrib-concat');
+
     grunt.registerTask('default', 'test task', function() {
         grunt.log.write('hi there');
     });
@@ -83,6 +96,8 @@ module.exports = function(grunt) {
     grunt.registerTask('build', ['strip']);
 
     grunt.registerTask('dist', ['uglify']);
+
+    grunt.registerTask('distDebug', ['concat']);
 
     grunt.registerTask('serve', [
         'configureProxies:server',

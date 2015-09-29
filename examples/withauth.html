@@ -87,6 +87,10 @@
                     "http://www.isotc211.org/2005/gco" : "gco"
                 },
                 mappingStyle : 'simplified'
+            },
+            {
+                user: 'user',
+                pass: 'pass'
             }
         ];
 
@@ -98,6 +102,7 @@
 
         // Create csw client
         // data.noaa.gov
+
         var csw = new Ows4js.Csw('../noa/csw', cswConfig);
 
         csw.GetCapabilities().then(function(me){
@@ -106,81 +111,6 @@
             console.debug(me);
             console.debug(me.operationsMetadata.constraint.filter(function(element){ return element.name == 'MaxRecordDefault' })[0].value[0]);
         });
-
-        console.info('Some OGC Filter Examples!');
-        // Create a Filter
-        var filter = new Ows4js.Filter().PropertyName('dc:title').isLike('%water%');
-        filter = filter.and(new Ows4js.Filter().PropertyName('dc:subject').isLike('%polution%'));
-        filter = filter.and(new Ows4js.Filter().BBOX(-80, 150, 80, -150, 'urn:x-ogc:def:crs:EPSG:6.11:4326'));
-
-        console.log('AND & AND Filter');
-        console.log(filter);
-        //console.log(filter.getXML());
-
-        var filter2 = new Ows4js.Filter().PropertyName('dc:title').isLike('%water%');
-        filter2 = filter2.or(new Ows4js.Filter().PropertyName('dc:subject').isLike('%polution%'));
-
-        console.log('OR Filter');
-        console.log(filter2);
-        console.log(filter2.getXML());
-
-        console.log('AND & OR Filter combined!');
-
-        //var filter3 = filter.and(filter2);
-        //console.log(filter3);
-        //console.log(filter3.getXML());
-
-        console.log('OR & AND Filter combined!');
-
-        var filter4 = filter2.or(filter);
-        console.log(filter4);
-        console.log(filter4.getXML());
-
-        // GetDomain
-        csw.GetDomain('dc:type').then(function(domain){
-            console.info('GetDomain Example!');
-            console.log(domain);
-        });
-
-        console.info('Some CSW GetRecord Example!');
-
-        // GetRecords
-        csw.GetRecords(1,10,filter).then(function(result){
-            console.log(result)
-        });
-
-        // GetRecords Without Filter;
-        csw.GetRecords(1,10).then(function(result){
-            console.log(result);
-        });
-
-        // Set outputSchema the default is 'http://www.opengis.net/cat/csw/2.0.2'
-        // or can be used this one too 'http://www.isotc211.org/2005/gmd'
-        var results3 = csw.GetRecords(1,10, null, 'http://www.opengis.net/cat/csw/2.0.2').then(function(result){
-            console.log(result);
-        });
-
-        // GetRecordById
-        csw.GetRecordById([
-            'gov.noaa.nodc:8800169'
-        ]).then(function(byid){
-            console.log(byid);
-        });
-
-        // Lets try transactions!
-        var record = Ows4js.Csw.xmlToObject(getXML('../examples/xml/recordISO19139.xml'));
-
-        console.log(record);
-
-        csw.insertRecords([record]).then(function(response){
-            console.log(response);
-        });//*/
-        csw.updateRecord(record).then(function(response){
-            console.log(response);
-        });//*/
-        csw.deleteRecords(filter).then(function(response){
-            console.log(response);
-        });//*/
 
     </script>
 </section>

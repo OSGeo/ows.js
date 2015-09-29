@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ogc:Filter xmlns:ogc="http://www.opengis.net/ogc" xmlns:csw="http://www.opengis.net/cat/csw/2.0.2" xmlns:gml="http://www.opengis.net/gml">
+    <ogc:PropertyIsLike wildCard="%" singleChar="_" escapeChar="">
+        <ogc:PropertyName>dc:title</ogc:PropertyName>
+        <ogc:Literal>%water%</ogc:Literal>
+    </ogc:PropertyIsLike>
+</ogc:Filter>
