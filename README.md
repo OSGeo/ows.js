@@ -1,4 +1,4 @@
-#ows.js
+# ows.js
 
 [![Build Status](https://travis-ci.org/OSGeo/ows.js.png?branch=master)](https://travis-ci.org/OSGeo/ows.js)
 
@@ -66,7 +66,7 @@ It is recommended to use bower, because this project depends on Jsonix and Ogc-s
 
 The CSW standard strongly depends on catalogues profiles. So first you need to determine what profile you want to use and include its depencies:
 
-####Basic CSW
+#### Basic CSW
 
 Include in you project:
 
@@ -111,7 +111,7 @@ var cswConfig = [
         ];
 ```
 
-####ISO 19139 (implementation of 19115)
+#### ISO 19139 (implementation of 19115)
 
 Include in you project:
 
